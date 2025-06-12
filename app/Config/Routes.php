@@ -15,6 +15,8 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
 
+$routes->get('/', 'Login::index'); // <== redirect root ke login
+
 // Routes Registrasi
 $routes->get('registrasi', 'Registrasi::index');
 $routes->post('registrasi/simpan', 'Registrasi::simpan');

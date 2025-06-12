@@ -59,5 +59,7 @@
     <button type="submit">Daftar</button>
 </form>
 
+<p>Sudah punya akun? <a href="/login">Login di sini</a></p>
+
 </body>
 </html>
