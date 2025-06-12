@@ -34,7 +34,7 @@ class CreateRegisTable extends Migration
             ],
             'password' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 15, // Maksimal 15 karakter
+                'constraint' => 255, // Maksimal 15 karakter
             ],
         ]);
         $this->forge->addKey('id_regis', true); // Primary key

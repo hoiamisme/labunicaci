@@ -14,6 +14,7 @@ class RegistrasiModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['nama_lengkap', 'email', 'cohort', 'prodi', 'password'];
 
+}
 //     protected bool $allowEmptyInserts = false;
 //     protected bool $updateOnlyChanged = true;
 
