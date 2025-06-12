@@ -17,12 +17,14 @@ class Registrasi extends Controller
         $validation = \Config\Services::validation();
 
         $rules = [
-            'nama_lengkap' => 'required|max_length[50]',
-            'email'        => 'required|valid_email|is_unique[registrasi.email]',
-            'cohort'       => 'required|max_length[10]',
-            'prodi'        => 'required|max_length[50]',
-            'password'     => 'required|min_length[6]|max_length[15]'
-        ];
+    'nama_lengkap'     => 'required|alpha_space|max_length[50]',
+    'email'            => 'required|valid_email|is_unique[registrasi.email]',
+    'cohort'           => 'required|numeric|max_length[10]',
+    'prodi'            => 'required|in_list[Kimia]',
+    'password'         => 'required|min_length[6]|max_length[255]',
+    'password_confirm' => 'required|matches[password]'
+];
+
 
         if (!$this->validate($rules)) {
             return view('registrasi_form', [

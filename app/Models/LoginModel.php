@@ -25,7 +25,7 @@ class LoginModel extends Model
 
     return $this->findAll();
 }
-
+}
 
 //     protected bool $allowEmptyInserts = false;
 //     protected bool $updateOnlyChanged = true;
