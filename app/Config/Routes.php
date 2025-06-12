@@ -28,3 +28,12 @@ $routes->get('/logout', 'Login::logout');
 
 //Routes Login to Dashboard
 $routes->get('/dashboard', 'Dashboard::index');
+
+//routes profiles
+$routes->get('profiles', 'Profiles::index');
+$routes->post('profiles/update', 'Profiles::update');
+
+//routes manajemen
+$routes->get('/manajemen', 'Manajemen::index');
+$routes->post('/manajemen/tambah', 'Manajemen::tambah');
+$routes->post('/manajemen/kurang', 'Manajemen::kurang');

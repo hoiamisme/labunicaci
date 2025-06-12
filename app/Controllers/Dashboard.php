@@ -10,6 +10,6 @@ class Dashboard extends BaseController
             return redirect()->to('/login');
         }
 
-        echo "Selamat datang, " . session()->get('nama_lengkap');
+        return view('Dashboard_form'); // Huruf besar sesuai file
     }
 }
