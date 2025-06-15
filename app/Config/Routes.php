@@ -4,7 +4,6 @@ use Config\Services;
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
-echo ">>> Routes file loaded\n"; // debug
 
 $routes = Services::routes();
 
@@ -48,3 +47,8 @@ $routes->get('logbook', 'Logbook::index');
 //routes user management
 $routes->get('user', 'User::index');
 $routes->post('user/updateStatus/(:num)', 'User::updateStatus/$1');
+
+//api
+$routes->get('/api/nama-by-jenis', 'Api::namaByJenis');
+$routes->get('/api/detail-item', 'Api::detailItem');
+
