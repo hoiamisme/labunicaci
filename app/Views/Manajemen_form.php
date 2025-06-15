@@ -67,3 +67,31 @@
 
     <button type="submit">Kurangi</button>
 </form>
+
+<hr>
+
+<form method="post" action="<?= site_url('alatbahan/proses_pengurangan') ?>">
+    <label>Nama Alat</label>
+    <select name="alat_id">
+        <option value="">-- Pilih Alat --</option>
+        <?php foreach ($alat as $a): ?>
+            <option value="<?= $a['id_alat'] ?>"><?= esc($a['nama_alat']) ?></option>
+        <?php endforeach ?>
+    </select>
+
+    <label>Nama Bahan</label>
+    <select name="bahan_id">
+        <option value="">-- Pilih Bahan --</option>
+        <?php foreach ($bahan as $b): ?>
+            <option value="<?= $b['id_bahan'] ?>"><?= esc($b['nama_bahan']) ?></option>
+        <?php endforeach ?>
+    </select>
+
+    <label>Volume</label>
+    <input type="number" name="volume" required min="1">
+
+    <label>Lokasi</label>
+    <input type="text" name="lokasi" required pattern="[a-zA-Z0-9\s]+" title="Tidak boleh karakter spesial">
+
+    <button type="submit">Simpan</button>
+</form>

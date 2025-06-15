@@ -37,3 +37,14 @@ $routes->post('profiles/update', 'Profiles::update');
 $routes->get('/manajemen', 'Manajemen::index');
 $routes->post('/manajemen/tambah', 'Manajemen::tambah');
 $routes->post('/manajemen/kurang', 'Manajemen::kurang');
+
+//routes pemakaian
+$routes->get('pemakaian', 'Pemakaian::index');
+$routes->post('pemakaian/add', 'Pemakaian::prosesAdd');
+$routes->get('pemakaian/view2', 'Pemakaian::view2');
+$routes->post('pemakaian/submit', 'Pemakaian::prosesSubmit');
+$routes->get('logbook', 'Logbook::index');
+
+//routes user management
+$routes->get('user', 'User::index');
+$routes->post('user/updateStatus/(:num)', 'User::updateStatus/$1');

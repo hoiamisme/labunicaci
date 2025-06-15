@@ -51,3 +51,17 @@ class ManajemenModel extends Model
         return view('Manajemen_form', $data);
     }
 }
+
+class AlatModel extends Model
+{
+    protected $table = 'alat';
+    protected $primaryKey = 'id_alat';
+    protected $allowedFields = ['id_alat', 'nama_alat', 'jumlah_alat', 'lokasi'];
+}
+
+class BahanModel extends Model
+{
+    protected $table = 'bahan';
+    protected $primaryKey = 'id_bahan';
+    protected $allowedFields = ['id_bahan', 'nama_bahan', 'jumlah_bahan', 'satuan_bahan', 'lokasi'];
+}
