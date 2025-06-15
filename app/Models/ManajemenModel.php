@@ -36,18 +36,4 @@ class ManajemenModel extends Model
             return $this->where('nama_bahan', $nama)->first();
         }
     }
-    
-    public function index()
-    {
-        $alatModel = new \App\Models\AlatModel();
-        $bahanModel = new \App\Models\BahanModel();
-
-        $data['alat'] = $alatModel->findAll();
-        $data['bahan'] = $bahanModel->findAll();
-
-        // Contoh data lokasi, bisa juga dari database
-        $data['lokasi'] = ['Lemari 1', 'Rak 2', 'Gudang', 'Laboratorium'];
-
-        return view('Manajemen_form', $data);
-    }
-}
+} 
