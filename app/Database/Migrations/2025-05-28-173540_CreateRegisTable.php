@@ -36,6 +36,12 @@ class CreateRegisTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255, // Maksimal 15 karakter
             ],
+
+            'foto_profil' => [
+    'type'       => 'VARCHAR',
+    'constraint' => 255,
+    'null'       => true,
+],
         ]);
         $this->forge->addKey('id_regis', true); // Primary key
         $this->forge->createTable('registrasi');
