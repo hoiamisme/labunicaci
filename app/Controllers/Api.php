@@ -5,21 +5,32 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AlatModel;
 use App\Models\BahanModel;
+use App\Models\InstrumenModel;
 
 class Api extends BaseController
 {
+    protected $alatModel;
+    protected $bahanModel;
+    protected $instrumenModel;
+
+    public function __construct()
+    {
+        $this->alatModel = new AlatModel();
+        $this->bahanModel = new BahanModel();
+        $this->instrumenModel = new InstrumenModel();
+    }
+
     public function namaByJenis()
     {
         $jenis = $this->request->getGet('jenis');
+        $result = [];
 
         if ($jenis === 'alat') {
-            $model = new AlatModel();
-            $data = $model->findAll();
-            $result = array_column($data, 'nama_alat');
+            $result = array_column($this->alatModel->findAll(), 'nama_alat');
         } elseif ($jenis === 'bahan') {
-            $model = new BahanModel();
-            $data = $model->findAll();
-            $result = array_column($data, 'nama_bahan');
+            $result = array_column($this->bahanModel->findAll(), 'nama_bahan');
+        } elseif ($jenis === 'instrumen') {
+            $result = array_column($this->instrumenModel->findAll(), 'nama_instrumen');
         } else {
             return $this->response->setStatusCode(400)->setJSON(['error' => 'Jenis tidak valid']);
         }
@@ -32,12 +43,18 @@ class Api extends BaseController
         $jenis = $this->request->getGet('jenis');
         $nama = $this->request->getGet('nama');
 
+        if (!$nama) {
+            return $this->response->setStatusCode(400)->setJSON(['error' => 'Nama tidak boleh kosong']);
+        }
+
+        $item = null;
+
         if ($jenis === 'alat') {
-            $model = new AlatModel();
-            $item = $model->where('nama_alat', $nama)->first();
+            $item = $this->alatModel->where('nama_alat', $nama)->first();
         } elseif ($jenis === 'bahan') {
-            $model = new BahanModel();
-            $item = $model->where('nama_bahan', $nama)->first();
+            $item = $this->bahanModel->where('nama_bahan', $nama)->first();
+        } elseif ($jenis === 'instrumen') {
+            $item = $this->instrumenModel->where('nama_instrumen', $nama)->first();
         } else {
             return $this->response->setStatusCode(400)->setJSON(['error' => 'Jenis tidak valid']);
         }

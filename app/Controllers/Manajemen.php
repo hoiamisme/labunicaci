@@ -5,31 +5,37 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AlatModel;
 use App\Models\BahanModel;
+use App\Models\InstrumenModel;
 
 class Manajemen extends BaseController
 {
     protected $alatModel;
     protected $bahanModel;
+    protected $instrumenModel;
 
     public function __construct()
     {
         $this->alatModel = new AlatModel();
         $this->bahanModel = new BahanModel();
+        $this->instrumenModel = new InstrumenModel();
     }
 
     public function index()
     {
         $alat = $this->alatModel->findAll();
         $bahan = $this->bahanModel->findAll();
+        $instrumen = $this->instrumenModel->findAll();
 
         $lokasi = array_unique(array_merge(
             array_column($alat, 'lokasi'),
-            array_column($bahan, 'lokasi')
+            array_column($bahan, 'lokasi'),
+            array_column($instrumen, 'lokasi')
         ));
 
         return view('Manajemen_form', [
             'alat' => $alat,
             'bahan' => $bahan,
+            'instrumen' => $instrumen,
             'lokasi' => $lokasi
         ]);
     }
@@ -55,6 +61,12 @@ class Manajemen extends BaseController
                 'satuan_bahan' => $satuan,
                 'lokasi' => $lokasi
             ]);
+        } elseif ($jenis === 'instrumen') {
+            $this->instrumenModel->save([
+                'nama_instrumen' => $nama,
+                'jumlah_instrumen' => (int) $jumlah,
+                'lokasi' => $lokasi
+            ]);
         }
 
         return redirect()->to('/manajemen');
@@ -78,6 +90,13 @@ class Manajemen extends BaseController
             if ($bahan && $bahan['jumlah_bahan'] >= $jumlah) {
                 $this->bahanModel->update($bahan['id_bahan'], [
                     'jumlah_bahan' => $bahan['jumlah_bahan'] - $jumlah
+                ]);
+            }
+        } elseif ($jenis === 'instrumen') {
+            $instrumen = $this->instrumenModel->where('nama_instrumen', $nama)->first();
+            if ($instrumen && $instrumen['jumlah_instrumen'] >= $jumlah) {
+                $this->instrumenModel->update($instrumen['id_instrumen'], [
+                    'jumlah_instrumen' => $instrumen['jumlah_instrumen'] - $jumlah
                 ]);
             }
         }

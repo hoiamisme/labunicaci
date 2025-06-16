@@ -32,6 +32,7 @@
         <option value="">-- Pilih Jenis --</option>
         <option value="alat">Alat</option>
         <option value="bahan">Bahan</option>
+        <option value="instrumen">Instrumen</option>
     </select><br>
 
     <label>Nama:</label>
@@ -71,6 +72,7 @@
         <option value="">-- Pilih Jenis --</option>
         <option value="alat">Alat</option>
         <option value="bahan">Bahan</option>
+        <option value="instrumen">Instrumen</option>
     </select><br>
 
     <label>Nama:</label>
@@ -148,10 +150,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 lokasiKurang.innerHTML = '';
 
                 if (jenis === "bahan") {
-                    satuanKurang.innerHTML += `<option value="${item.satuan_bahan}">${item.satuan_bahan}</option>`;
-                } else {
-                    satuanKurang.innerHTML += `<option value="-">-</option>`;
-                }
+    satuanKurang.innerHTML += `<option value="${item.satuan_bahan}">${item.satuan_bahan}</option>`;
+} else {
+    satuanKurang.innerHTML += `<option value="-">-</option>`;
+}
 
                 if (item.lokasi) {
                     lokasiKurang.innerHTML += `<option value="${item.lokasi.toLowerCase()}">${item.lokasi.toLowerCase()}</option>`;
@@ -159,6 +161,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // batasi jumlah maksimum
                 jumlahKurang.max = jenis === "bahan" ? item.jumlah_bahan : item.jumlah_alat;
+
+                jumlahKurang.max = jenis === "bahan" ? item.jumlah_bahan :
+                   jenis === "alat" ? item.jumlah_alat :
+                   item.jumlah_instrumen;
+
             });
     });
 });
