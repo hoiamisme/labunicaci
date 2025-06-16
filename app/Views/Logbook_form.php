@@ -8,7 +8,7 @@
             <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
             <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
             <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
-            <a href="/profile" style="margin-right: 10px;">👤 Profiles</a>
+            <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
             <a href="/logout">🔒 Logout</a>
         </div>
     </div>

@@ -11,12 +11,12 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('logged_in')) {
-            return redirect()->to('/login')->with('error', 'Anda harus login dulu.');
+            return redirect()->to('/login')->with('error', 'Sesi telah habis, silakan login kembali.');
         }
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        // tidak perlu diisi untuk sekarang
+        // Tidak perlu diisi untuk sekarang
     }
 }
