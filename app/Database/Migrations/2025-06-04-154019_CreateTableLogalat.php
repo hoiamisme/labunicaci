@@ -41,14 +41,18 @@ class CreateTableLogalat extends Migration
                 'type'       => 'TEXT',
                 'null'       => true,
             ],
-            'tanggal' => [
-                'type'       => 'DATETIME',
+            'tanggal_dipinjam' => [
+                'type'       => 'DATE',
                 'null'       => true, // Boleh null jika belum ada data
+            ],
+            'tanggal_kembali' => [
+                'type'       => 'DATE',
+                'null'       => true,
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['setuju', 'tidak setuju'],
-                'default'    => 'tidak setuju',
+                'constraint' => ['sudah kembali', 'belum kembali'],
+                'default'    => 'belum kembali',
                 'null'       => true, // Boleh null jika belum ada data
             ],
         ]);

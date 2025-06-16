@@ -46,8 +46,8 @@ class CreateTableLogbahan extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['setuju', 'tidak setuju'],
-                'default'    => 'tidak setuju',
+                'constraint' => ['approve', 'not approve'],
+                'default'    => 'not approve',
                 'null'       => true, // Boleh null jika belum ada data
             ],
         ]);
