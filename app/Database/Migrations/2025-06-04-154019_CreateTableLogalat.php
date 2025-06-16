@@ -42,11 +42,11 @@ class CreateTableLogalat extends Migration
                 'null'       => true,
             ],
             'tanggal_dipinjam' => [
-                'type'       => 'DATE',
+                'type'       => 'DATETIME',
                 'null'       => true, // Boleh null jika belum ada data
             ],
             'tanggal_kembali' => [
-                'type'       => 'DATE',
+                'type'       => 'DATETIME',
                 'null'       => true,
             ],
             'status' => [

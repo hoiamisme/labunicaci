@@ -17,12 +17,12 @@ class CreateRegisTable extends Migration
             ],
             'nama_lengkap' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 50, // Maksimal 50 karakter
+                'constraint' => 50,
             ],
             'email' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 50, // Maksimal 50 karakter
-                'unique'     => true, // Email harus unik
+                'constraint' => 50,
+                'unique'     => true,
             ],
             'cohort' => [
                 'type'       => 'VARCHAR',
@@ -34,21 +34,26 @@ class CreateRegisTable extends Migration
             ],
             'password' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255, // Maksimal 15 karakter
+                'constraint' => 255,
             ],
-
             'foto_profil' => [
-    'type'       => 'VARCHAR',
-    'constraint' => 255,
-    'null'       => true,
-],
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
+            ],
+            'role' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 5,
+                'default'    => 'user',
+                'comment'    => 'Hanya boleh "user" atau "admin"',
+            ],
         ]);
-        $this->forge->addKey('id_regis', true); // Primary key
+        $this->forge->addKey('id_regis', true);
         $this->forge->createTable('registrasi');
     }
 
     public function down()
     {
-        $this->forge->dropTable('registrasi', true); // Drops the table if it exists
+        $this->forge->dropTable('registrasi', true);
     }
 }

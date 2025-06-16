@@ -17,11 +17,11 @@ class Registrasi extends Controller
         $validation = \Config\Services::validation();
 
         $rules = [
-            'nama_lengkap'     => 'required|alpha_space|max_length[50]',
-            'email'            => 'required|valid_email',
-            'cohort'           => 'required|numeric|max_length[10]',
-            'prodi'            => 'required|in_list[Kimia]',
-            'password'         => [
+            'nama_lengkap' => 'required|alpha_space|max_length[50]',
+            'email'        => 'required|valid_email',
+            'cohort'       => 'required|numeric|max_length[10]',
+            'prodi'        => 'required|in_list[Kimia]',
+            'password'     => [
                 'label'  => 'Password',
                 'rules'  => 'required|min_length[6]|max_length[255]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/]',
                 'errors' => [
@@ -40,7 +40,7 @@ class Registrasi extends Controller
         $model = new RegistrasiModel();
         $email = $this->request->getPost('email');
 
-        // Cek email secara manual
+        // Cek apakah email sudah terdaftar
         if ($model->where('email', $email)->first()) {
             return view('registrasi_form', [
                 'validation' => $validation,
@@ -48,12 +48,14 @@ class Registrasi extends Controller
             ]);
         }
 
+        // Simpan data dengan role default "user"
         $model->insert([
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
             'email'        => $email,
             'cohort'       => $this->request->getPost('cohort'),
             'prodi'        => $this->request->getPost('prodi'),
             'password'     => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'role'         => 'user'
         ]);
 
         return redirect()->to('/registrasi')->with('success', 'Registrasi berhasil.');
