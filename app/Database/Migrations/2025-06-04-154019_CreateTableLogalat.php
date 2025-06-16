@@ -27,7 +27,12 @@ class CreateTableLogalat extends Migration
                 'unsigned'   => true,
                 'null'       => true, // Boleh null jika belum ada data
             ],
-            'jumlah_pinjam_alat' => [
+            'pengurangan' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
+                'null'       => true, // Boleh null jika belum ada data
+            ],
+            'penambahan' => [
                 'type'       => 'INT',
                 'unsigned'   => true,
                 'null'       => true, // Boleh null jika belum ada data
@@ -51,8 +56,8 @@ class CreateTableLogalat extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['sudah kembali', 'belum kembali'],
-                'default'    => 'belum kembali',
+                'constraint' => ['approve', 'not approve'],
+                'default'    => 'not approve',
                 'null'       => true, // Boleh null jika belum ada data
             ],
         ]);

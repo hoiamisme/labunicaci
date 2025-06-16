@@ -27,8 +27,14 @@ class CreateTableLogbahan extends Migration
                 'unsigned'   => true,
                 'null'       => true, // Boleh null jika belum ada data
             ],
-            'jumlah_pinjam_bahan' => [
-                'type'       => 'FLOAT',
+            'pengurangan' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
+                'null'       => true, // Boleh null jika belum ada data
+            ],
+            'penambahan' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
                 'null'       => true, // Boleh null jika belum ada data
             ],
             'tujuan_pemakaian' => [
