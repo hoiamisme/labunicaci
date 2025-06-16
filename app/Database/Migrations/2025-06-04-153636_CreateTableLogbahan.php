@@ -41,13 +41,13 @@ class CreateTableLogbahan extends Migration
                 'null'       => true,
             ],
             'tanggal' => [
-                'type'       => 'DATE',
+                'type'       => 'DATETIME',
                 'null'       => true, // Boleh null jika belum ada data
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['approve', 'not approve'],
-                'default'    => 'not approve',
+                'constraint' => ['setuju', 'tidak setuju'],
+                'default'    => 'tidak setuju',
                 'null'       => true, // Boleh null jika belum ada data
             ],
         ]);

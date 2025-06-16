@@ -13,3 +13,4 @@ class Dashboard extends BaseController
         return view('Dashboard_form'); // Huruf besar sesuai file
     }
 }
+

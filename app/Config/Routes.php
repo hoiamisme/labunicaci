@@ -16,39 +16,49 @@ $routes->setAutoRoute(false);
 
 $routes->get('/', 'Login::index'); // <== redirect root ke login
 
-// Routes Registrasi
+// Filter
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('/manajemen', 'Manajemen::index', ['filter' => 'auth']);
+$routes->get('/profiles', 'Profiles::index', ['filter' => 'auth']);
+$routes->get('/logbook', 'Logbook::index', ['filter' => 'auth']);
+$routes->get('/pemakaian', 'Pemakaian::index', ['filter' => 'auth']);
+
+
+// Registrasi
 $routes->get('registrasi', 'Registrasi::index');
 $routes->post('registrasi/simpan', 'Registrasi::simpan');
 
-//Routes Login
+// Login
 $routes->get('/login', 'Login::index');
 $routes->post('/login/auth', 'Login::auth');
 $routes->get('/logout', 'Login::logout');
 
-//Routes Login to Dashboard
+// Dashboard
 $routes->get('/dashboard', 'Dashboard::index');
 
-//routes profiles
+// Profiles
 $routes->get('profiles', 'Profiles::index');
 $routes->post('profiles/update', 'Profiles::update');
 
-//routes manajemen
+// Manajemen
 $routes->get('/manajemen', 'Manajemen::index');
 $routes->post('/manajemen/tambah', 'Manajemen::tambah');
 $routes->post('/manajemen/kurang', 'Manajemen::kurang');
 
-//routes pemakaian
+// Pemakaian
 $routes->get('pemakaian', 'Pemakaian::index');
 $routes->post('pemakaian/add', 'Pemakaian::prosesAdd');
 $routes->get('pemakaian/view2', 'Pemakaian::view2');
 $routes->post('pemakaian/submit', 'Pemakaian::prosesSubmit');
+
+// Logbook
 $routes->get('logbook', 'Logbook::index');
 
-//routes user management
+// User Management
 $routes->get('user', 'User::index');
 $routes->post('user/updateStatus/(:num)', 'User::updateStatus/$1');
 
-//api
+// Api
 $routes->get('/api/nama-by-jenis', 'Api::namaByJenis');
 $routes->get('/api/detail-item', 'Api::detailItem');
 
