@@ -57,9 +57,6 @@
         <?php endforeach; ?>
     </datalist>
 
-    <label>Tanggal:</label>
-    <input type="date" name="tanggal" required><br>
-
     <button type="submit">Tambah</button>
 </form>
 
@@ -80,21 +77,20 @@
         <option value="">Pilih jenis dulu</option>
     </select><br>
 
+    <div id="satuanKurangWrapper">
+        <label>Satuan:</label>
+        <select name="satuan" id="satuanKurang" required>
+            <option value="">Pilih nama dulu</option>
+        </select><br>
+    </div>
+
     <label>Jumlah:</label>
     <input type="number" name="jumlah" id="jumlahKurang" min="0" required><br>
-
-    <label>Satuan:</label>
-    <select name="satuan" id="satuanKurang" required>
-        <option value="">Pilih nama dulu</option>
-    </select><br>
 
     <label>Lokasi:</label>
     <select name="lokasi" id="lokasiKurang" required>
         <option value="">Pilih nama dulu</option>
     </select><br>
-
-    <label>Tanggal:</label>
-    <input type="date" name="tanggal" required><br>
 
     <button type="submit">Kurangi</button>
 </form>
@@ -117,11 +113,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const jenisKurang = document.getElementById("jenisKurang");
     const namaKurang = document.getElementById("namaKurang");
     const satuanKurang = document.getElementById("satuanKurang");
+    const satuanKurangWrapper = document.getElementById("satuanKurangWrapper");
     const lokasiKurang = document.getElementById("lokasiKurang");
     const jumlahKurang = document.getElementById("jumlahKurang");
 
+    function toggleSatuanKurang() {
+        satuanKurangWrapper.style.display = (jenisKurang.value === "bahan") ? "block" : "none";
+    }
+
     jenisKurang.addEventListener("change", function () {
         const jenis = jenisKurang.value;
+        toggleSatuanKurang();
+
         namaKurang.innerHTML = '<option>Memuat...</option>';
 
         fetch(`<?= base_url('api/nama-by-jenis') ?>?jenis=${jenis}`)
@@ -150,24 +153,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 lokasiKurang.innerHTML = '';
 
                 if (jenis === "bahan") {
-    satuanKurang.innerHTML += `<option value="${item.satuan_bahan}">${item.satuan_bahan}</option>`;
-} else {
-    satuanKurang.innerHTML += `<option value="-">-</option>`;
-}
-
-                if (item.lokasi) {
-                    lokasiKurang.innerHTML += `<option value="${item.lokasi.toLowerCase()}">${item.lokasi.toLowerCase()}</option>`;
+                    satuanKurang.innerHTML += `<option value="${item.satuan_bahan}">${item.satuan_bahan}</option>`;
+                } else {
+                    satuanKurang.innerHTML += `<option value="-">-</option>`;
                 }
 
-                // batasi jumlah maksimum
-                jumlahKurang.max = jenis === "bahan" ? item.jumlah_bahan : item.jumlah_alat;
+                lokasiKurang.innerHTML += `<option value="${item.lokasi.toLowerCase()}">${item.lokasi.toLowerCase()}</option>`;
 
                 jumlahKurang.max = jenis === "bahan" ? item.jumlah_bahan :
-                   jenis === "alat" ? item.jumlah_alat :
-                   item.jumlah_instrumen;
-
+                                   jenis === "alat" ? item.jumlah_alat :
+                                   item.jumlah_instrumen;
             });
     });
+
+    // Set visibilitas satuan saat pertama kali load
+    toggleSatuanKurang();
 });
 </script>
 
