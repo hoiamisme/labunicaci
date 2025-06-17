@@ -18,7 +18,7 @@ class Logbook extends BaseController
     }
 
     /**
-     * Halaman utama logbook - GABUNGAN DATA ALAT & BAHAN
+     * Halaman utama logbook - TABEL TERPISAH
      */
     public function index()
     {
@@ -32,56 +32,6 @@ class Logbook extends BaseController
             $dataAlat = $this->logalatModel->getLogalatWithDetails();
             $dataBahan = $this->logbahanModel->getLogbahanWithDetails();
 
-            // Gabungkan data dengan format yang konsisten
-            $logbook = [];
-            
-            // Format data ALAT
-            foreach ($dataAlat as $alat) {
-                $logbook[] = [
-                    'id' => $alat['id_logalat'],
-                    'jenis' => 'alat',
-                    'nama_pengguna' => $alat['nama_lengkap'] ?? '-',
-                    'email' => $alat['email'] ?? '-',
-                    'nama_item' => $alat['nama_alat'] ?? '-',
-                    'penambahan' => $alat['penambahan'] ?? '0',
-                    'pengurangan' => $alat['pengurangan'] ?? '0',
-                    'tanggal' => $alat['tanggal_dipinjam'] ?? $alat['tanggal_kembali'] ?? '-',
-                    'tujuan_pemakaian' => $alat['tujuan_pemakaian'] ?? '-',
-                    'status' => $alat['status'] ?? '-',
-                    'pesan' => $alat['pesan'] ?? '-',
-                    'lokasi' => $alat['lokasi_alat'] ?? '-',
-                    'satuan' => '', // Alat tidak ada satuan
-                    'tipe_aktivitas' => 'Peminjaman Alat'
-                ];
-            }
-
-            // Format data BAHAN
-            foreach ($dataBahan as $bahan) {
-                $logbook[] = [
-                    'id' => $bahan['id_logbahan'],
-                    'jenis' => 'bahan',
-                    'nama_pengguna' => $bahan['nama_lengkap'] ?? '-',
-                    'email' => $bahan['email'] ?? '-',
-                    'nama_item' => $bahan['nama_bahan'] ?? '-',
-                    'penambahan' => $bahan['penambahan'] ?? '0',
-                    'pengurangan' => $bahan['pengurangan'] ?? '0',
-                    'tanggal' => $bahan['tanggal'] ?? '-',
-                    'tujuan_pemakaian' => $bahan['tujuan_pemakaian'] ?? '-',
-                    'status' => $bahan['status'] ?? '-',
-                    'pesan' => $bahan['pesan'] ?? '-',
-                    'lokasi' => $bahan['lokasi_bahan'] ?? '-',
-                    'satuan' => $bahan['satuan_bahan'] ?? '-',
-                    'tipe_aktivitas' => 'Pemakaian Bahan'
-                ];
-            }
-
-            // Urutkan berdasarkan tanggal terbaru
-            usort($logbook, function($a, $b) {
-                $timeA = strtotime($a['tanggal']) ?: 0;
-                $timeB = strtotime($b['tanggal']) ?: 0;
-                return $timeB - $timeA; // Terbaru dulu
-            });
-
             // Hitung statistik
             $totalAlat = count($dataAlat);
             $totalBahan = count($dataBahan);
@@ -89,16 +39,35 @@ class Logbook extends BaseController
             $totalPending = 0;
             $aktivitasHariIni = 0;
 
-            foreach ($logbook as $item) {
-                if ($item['status'] === 'approve') {
+            // Hitung statistik alat
+            foreach ($dataAlat as $alat) {
+                if ($alat['status'] === 'approve') {
                     $totalApprove++;
-                } elseif ($item['status'] === 'not approve' || $item['status'] === 'pending') {
+                } elseif ($alat['status'] === 'not approve') {
                     $totalPending++;
                 }
 
-                // Hitung aktivitas hari ini
-                if ($item['tanggal'] && $item['tanggal'] !== '-') {
-                    $tanggalItem = date('Y-m-d', strtotime($item['tanggal']));
+                // Aktivitas hari ini berdasarkan tanggal dipinjam
+                if (!empty($alat['tanggal_dipinjam'])) {
+                    $tanggalItem = date('Y-m-d', strtotime($alat['tanggal_dipinjam']));
+                    $hariIni = date('Y-m-d');
+                    if ($tanggalItem === $hariIni) {
+                        $aktivitasHariIni++;
+                    }
+                }
+            }
+
+            // Hitung statistik bahan
+            foreach ($dataBahan as $bahan) {
+                if ($bahan['status'] === 'approve') {
+                    $totalApprove++;
+                } elseif ($bahan['status'] === 'not approve') {
+                    $totalPending++;
+                }
+
+                // Aktivitas hari ini berdasarkan tanggal
+                if (!empty($bahan['tanggal'])) {
+                    $tanggalItem = date('Y-m-d', strtotime($bahan['tanggal']));
                     $hariIni = date('Y-m-d');
                     if ($tanggalItem === $hariIni) {
                         $aktivitasHariIni++;
@@ -107,7 +76,8 @@ class Logbook extends BaseController
             }
 
             $data = [
-                'logbook' => $logbook,
+                'dataAlat' => $dataAlat,
+                'dataBahan' => $dataBahan,
                 'statistik' => [
                     'total_alat' => $totalAlat,
                     'total_bahan' => $totalBahan,
@@ -123,7 +93,8 @@ class Logbook extends BaseController
         } catch (\Exception $e) {
             // Jika error, tampilkan dengan data kosong
             $data = [
-                'logbook' => [],
+                'dataAlat' => [],
+                'dataBahan' => [],
                 'statistik' => [
                     'total_alat' => 0,
                     'total_bahan' => 0,
@@ -157,10 +128,11 @@ class Logbook extends BaseController
             $output = fopen('php://output', 'w');
             fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM untuk UTF-8
             
-            // Header CSV
+            // Header CSV untuk ALAT
+            fputcsv($output, ['=== LOGBOOK ALAT ===']);
             fputcsv($output, [
-                'Nama Pengguna', 'Email', 'Nama Item', 'Jenis', 'Penambahan', 'Pengurangan',
-                'Tanggal', 'Tujuan Pemakaian', 'Status', 'Pesan', 'Lokasi', 'Satuan', 'Tipe Aktivitas'
+                'Nama Pengguna', 'Email', 'Nama Alat', 'Penambahan', 'Pengurangan',
+                'Tanggal Dipinjam', 'Tanggal Kembali', 'Tujuan Pemakaian', 'Status', 'Pesan', 'Lokasi'
             ]);
             
             // Data Alat
@@ -169,18 +141,26 @@ class Logbook extends BaseController
                     $alat['nama_lengkap'] ?? '',
                     $alat['email'] ?? '',
                     $alat['nama_alat'] ?? '',
-                    'Alat',
                     $alat['penambahan'] ?? '0',
                     $alat['pengurangan'] ?? '0',
-                    $alat['tanggal_dipinjam'] ?? $alat['tanggal_kembali'] ?? '',
+                    $alat['tanggal_dipinjam'] ?? '',
+                    $alat['tanggal_kembali'] ?? '',
                     $alat['tujuan_pemakaian'] ?? '',
                     $alat['status'] ?? '',
                     $alat['pesan'] ?? '',
-                    $alat['lokasi_alat'] ?? '',
-                    '',
-                    'Peminjaman Alat'
+                    $alat['lokasi_alat'] ?? ''
                 ]);
             }
+            
+            // Pemisah
+            fputcsv($output, ['']);
+            fputcsv($output, ['=== LOGBOOK BAHAN ===']);
+            
+            // Header CSV untuk BAHAN
+            fputcsv($output, [
+                'Nama Pengguna', 'Email', 'Nama Bahan', 'Penambahan', 'Pengurangan',
+                'Tanggal', 'Tujuan Pemakaian', 'Status', 'Pesan', 'Lokasi', 'Satuan'
+            ]);
             
             // Data Bahan
             foreach ($dataBahan as $bahan) {
@@ -188,7 +168,6 @@ class Logbook extends BaseController
                     $bahan['nama_lengkap'] ?? '',
                     $bahan['email'] ?? '',
                     $bahan['nama_bahan'] ?? '',
-                    'Bahan',
                     $bahan['penambahan'] ?? '0',
                     $bahan['pengurangan'] ?? '0',
                     $bahan['tanggal'] ?? '',
@@ -196,8 +175,7 @@ class Logbook extends BaseController
                     $bahan['status'] ?? '',
                     $bahan['pesan'] ?? '',
                     $bahan['lokasi_bahan'] ?? '',
-                    $bahan['satuan_bahan'] ?? '',
-                    'Pemakaian Bahan'
+                    $bahan['satuan_bahan'] ?? ''
                 ]);
             }
             
