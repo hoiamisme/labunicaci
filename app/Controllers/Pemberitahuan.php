@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\PemberitahuanModel;
 use App\Models\AlatModel;
 use App\Models\BahanModel;
+use CodeIgniter\I18n\Time;
 
 class Pemberitahuan extends BaseController
 {
@@ -34,13 +35,16 @@ class Pemberitahuan extends BaseController
     public function approveAlat()
     {
         $id = $this->request->getPost('id_logalat');
-
         $log = $this->db->table('logalat')->where('id_logalat', $id)->get()->getRowArray();
 
         if ($log) {
             $alat = $this->alatModel->find($log['id_alat']);
 
-            if ($alat) {
+            if (!$alat) {
+                return redirect()->back()->with('error', 'Data alat tidak ditemukan.');
+            }
+
+            if ($log['status'] === 'not approve') {
                 if ($alat['jumlah_alat'] < $log['pengurangan']) {
                     return redirect()->back()->with('error', 'Stok alat tidak mencukupi.');
                 }
@@ -51,11 +55,23 @@ class Pemberitahuan extends BaseController
 
                 $this->db->table('logalat')->where('id_logalat', $id)->update(['status' => 'rent approve']);
 
-                return redirect()->back()->with('message', 'Alat disetujui dan stok telah diperbarui.');
+                return redirect()->back()->with('message', 'Peminjaman disetujui, status menjadi "rent approve".');
+
+            } elseif ($log['status'] === 'return approve') {
+                $this->alatModel->update($alat['id_alat'], [
+                    'jumlah_alat' => $alat['jumlah_alat'] + $log['pengurangan']
+                ]);
+
+                $this->db->table('logalat')->where('id_logalat', $id)->update([
+                    'status' => 'approve',
+                    'tanggal_kembali' => Time::now()
+                ]);
+
+                return redirect()->back()->with('message', 'Pengembalian dikonfirmasi, status menjadi "approve".');
             }
         }
 
-        return redirect()->back()->with('error', 'Data alat tidak ditemukan.');
+        return redirect()->back()->with('error', 'Data log tidak valid.');
     }
 
     public function approveBahan()
@@ -100,10 +116,9 @@ class Pemberitahuan extends BaseController
     }
 
     public function returnAlat()
-{
-    $id = $this->request->getPost('id_logalat');
-    $this->db->table('logalat')->where('id_logalat', $id)->update(['status' => 'return approve']);
-    return redirect()->back()->with('message', 'Peminjaman alat telah dikonfirmasi kembali.');
-}
-
+    {
+        $id = $this->request->getPost('id_logalat');
+        $this->db->table('logalat')->where('id_logalat', $id)->update(['status' => 'return approve']);
+        return redirect()->back()->with('message', 'Peminjaman alat telah dikonfirmasi kembali.');
+    }
 }
