@@ -14,15 +14,7 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
 
-$routes->get('/', 'Login::index'); // <== redirect root ke login
-
-// Filter
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
-$routes->get('/manajemen', 'Manajemen::index', ['filter' => 'auth']);
-$routes->get('/profiles', 'Profiles::index', ['filter' => 'auth']);
-$routes->get('/logbook', 'Logbook::index', ['filter' => 'auth']);
-$routes->get('/pemakaian', 'Pemakaian::index', ['filter' => 'auth']);
-
+$routes->get('/', 'Login::index');
 
 // Registrasi
 $routes->get('registrasi', 'Registrasi::index');
@@ -51,10 +43,14 @@ $routes->post('pemakaian/add', 'Pemakaian::prosesAdd');
 $routes->get('pemakaian/view2', 'Pemakaian::view2');
 $routes->post('pemakaian/submit', 'Pemakaian::prosesSubmit');
 
-// Logbook
+// LOGBOOK ROUTES - HAPUS FILTER DULU UNTUK TEST
 $routes->get('logbook', 'Logbook::index');
+$routes->get('logbook/export', 'Logbook::export');
+$routes->get('logbook/statistik', 'Logbook::statistik');
+$routes->get('logbook/detail/(:alpha)/(:num)', 'Logbook::detail/$1/$2');
+$routes->post('logbook/update-status', 'Logbook::updateStatus');
 
-// User Management
+// User Management  
 $routes->get('user', 'User::index');
 $routes->post('user/updateStatus/(:num)', 'User::updateStatus/$1');
 
