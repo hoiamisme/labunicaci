@@ -7,17 +7,19 @@
 </head>
 <body>
     <div>
-        <a href="/dashboard" style="margin-right: 10px;">🏠 Dashboard</a>
-        <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
-        <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
-        <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
-        <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
-        <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
-        <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
-        <strong><a href="/inventory/daftar-instrumen" style="margin-right: 10px; color: #007bff;">📏 Daftar Instrumen</a></strong>
-        <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
-        <a href="/logout">🔒 Logout</a>
-    </div>
+    <a href="/dashboard" style="margin-right: 10px;">🏠 Dashboard</a>
+    <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
+    <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
+    <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
+    <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
+    <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
+    <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
+    <strong><a href="/inventory/daftar-instrumen" style="margin-right: 10px; color: #007bff;">📏 Daftar Instrumen</a></strong>
+    <a href="/pemberitahuan" style="margin-right: 10px;">🔔 Pemberitahuan</a>
+    <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
+    <a href="/logout">🔒 Logout</a>
+</div>
+
 
     <h2>📏 Daftar Instrumen</h2>
     

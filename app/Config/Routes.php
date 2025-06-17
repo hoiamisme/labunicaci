@@ -78,3 +78,10 @@ $routes->post('inventory/hapus-alat/(:num)', 'Inventory::hapus_alat/$1');
 $routes->post('inventory/hapus-bahan/(:num)', 'Inventory::hapus_bahan/$1');
 $routes->post('inventory/hapus-instrumen/(:num)', 'Inventory::hapus_instrumen/$1');
 
+//Pemberitahuan
+$routes->get('pemberitahuan', 'Pemberitahuan::index');
+$routes->post('pemberitahuan/approveAlat', 'Pemberitahuan::approveAlat');
+$routes->post('pemberitahuan/approveBahan', 'Pemberitahuan::approveBahan');
+
+
+
