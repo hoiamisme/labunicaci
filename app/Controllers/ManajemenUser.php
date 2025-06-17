@@ -248,18 +248,14 @@ class ManajemenUser extends BaseController
         $users = $this->manajemenUserModel->findAll();
 
         $filename = 'users_' . date('Y-m-d_H-i-s') . '.csv';
-        
         header('Content-Type: text/csv; charset=UTF-8');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
-        
         $output = fopen('php://output', 'w');
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM untuk UTF-8
-        
         // Header CSV
         fputcsv($output, [
             'ID', 'Nama Lengkap', 'Email', 'Cohort', 'Program Studi', 'Role'
         ]);
-        
         // Data users
         foreach ($users as $user) {
             fputcsv($output, [
@@ -271,7 +267,6 @@ class ManajemenUser extends BaseController
                 $user['role']
             ]);
         }
-        
         fclose($output);
         exit();
     }
