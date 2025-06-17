@@ -48,58 +48,104 @@ class Manajemen extends BaseController
     }
 
     public function tambah()
-    {
-        $jenis = $this->request->getPost('jenis');
-        $nama = $this->request->getPost('nama');
-        $jumlah = $this->request->getPost('jumlah');
-        $satuan = $this->request->getPost('satuan');
-        $lokasi = $this->request->getPost('lokasi');
+{
+    $jenis = $this->request->getPost('jenis');
+    $nama = $this->request->getPost('nama');
+    $jumlah = $this->request->getPost('jumlah');
+    $satuan = $this->request->getPost('satuan');
+    $lokasi = strtolower($this->request->getPost('lokasi'));
 
-        if ($jenis === 'alat') {
-            $this->alatModel->save([
+    if ($jenis === 'alat') {
+        // Cek apakah sudah ada
+        $alat = $this->alatModel
+            ->where('nama_alat', $nama)
+            ->where('lokasi', $lokasi)
+            ->first();
+
+        if ($alat) {
+            // Update jumlah
+            $this->alatModel->update($alat['id_alat'], [
+                'jumlah_alat' => $alat['jumlah_alat'] + (int)$jumlah
+            ]);
+        } else {
+            // Insert baru
+            $this->alatModel->insert([
                 'nama_alat' => $nama,
-                'jumlah_alat' => (int) $jumlah,
+                'jumlah_alat' => (int)$jumlah,
                 'lokasi' => $lokasi
             ]);
-            $alat = $this->alatModel->where('nama_alat', $nama)->first();
-            if ($alat) {
-                $this->logalatModel->insert([
-                    'id_regis' => session('id_regis'),
-                    'id_alat' => $alat['id_alat'],
-                    'penambahan' => $jumlah,
-                    'tujuan_pemakaian' => 'manajemen penambahan alat',
-                    'tanggal_dipinjam' => Time::now(),
-                    'status' => 'approve'
-                ]);
-            }
-        } elseif ($jenis === 'bahan') {
-            $this->bahanModel->save([
-                'nama_bahan' => $nama,
-                'jumlah_bahan' => (float) $jumlah,
-                'satuan_bahan' => $satuan,
-                'lokasi' => $lokasi
-            ]);
-            $bahan = $this->bahanModel->where('nama_bahan', $nama)->first();
-            if ($bahan) {
-                $this->logbahanModel->insert([
-                    'id_regis' => session('id_regis'),
-                    'id_bahan' => $bahan['id_bahan'],
-                    'penambahan' => $jumlah,
-                    'tujuan_pemakaian' => 'manajemen penambahan bahan',
-                    'tanggal' => Time::now(),
-                    'status' => 'approve'
-                ]);
-            }
-        } elseif ($jenis === 'instrumen') {
-            $this->instrumenModel->save([
-                'nama_instrumen' => $nama,
-                'jumlah_instrumen' => (int) $jumlah,
-                'lokasi' => $lokasi
+            $alat = $this->alatModel
+                ->where('nama_alat', $nama)
+                ->where('lokasi', $lokasi)
+                ->first();
+        }
+
+        if ($alat) {
+            $this->logalatModel->insert([
+                'id_regis' => session('id_regis'),
+                'id_alat' => $alat['id_alat'],
+                'penambahan' => $jumlah,
+                'tujuan_pemakaian' => 'manajemen penambahan alat',
+                'tanggal_dipinjam' => Time::now(),
+                'status' => 'approve'
             ]);
         }
 
-        return redirect()->to('/manajemen');
+    } elseif ($jenis === 'bahan') {
+        $bahan = $this->bahanModel
+            ->where('nama_bahan', $nama)
+            ->where('lokasi', $lokasi)
+            ->first();
+
+        if ($bahan) {
+            $this->bahanModel->update($bahan['id_bahan'], [
+                'jumlah_bahan' => $bahan['jumlah_bahan'] + (float)$jumlah
+            ]);
+        } else {
+            $this->bahanModel->insert([
+                'nama_bahan' => $nama,
+                'jumlah_bahan' => (float)$jumlah,
+                'satuan_bahan' => $satuan,
+                'lokasi' => $lokasi
+            ]);
+            $bahan = $this->bahanModel
+                ->where('nama_bahan', $nama)
+                ->where('lokasi', $lokasi)
+                ->first();
+        }
+
+        if ($bahan) {
+            $this->logbahanModel->insert([
+                'id_regis' => session('id_regis'),
+                'id_bahan' => $bahan['id_bahan'],
+                'penambahan' => $jumlah,
+                'tujuan_pemakaian' => 'manajemen penambahan bahan',
+                'tanggal' => Time::now(),
+                'status' => 'approve'
+            ]);
+        }
+
+    } elseif ($jenis === 'instrumen') {
+        $instrumen = $this->instrumenModel
+            ->where('nama_instrumen', $nama)
+            ->where('lokasi', $lokasi)
+            ->first();
+
+        if ($instrumen) {
+            $this->instrumenModel->update($instrumen['id_instrumen'], [
+                'jumlah_instrumen' => $instrumen['jumlah_instrumen'] + (int)$jumlah
+            ]);
+        } else {
+            $this->instrumenModel->insert([
+                'nama_instrumen' => $nama,
+                'jumlah_instrumen' => (int)$jumlah,
+                'lokasi' => $lokasi
+            ]);
+        }
     }
+
+    return redirect()->to('/manajemen');
+}
 
     public function kurang()
     {
