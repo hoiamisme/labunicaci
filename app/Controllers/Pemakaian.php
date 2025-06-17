@@ -52,7 +52,7 @@ class Pemakaian extends BaseController
                         'pengurangan' => $item['jumlah'],
                         'tujuan_pemakaian' => $tujuan,
                         'tanggal_dipinjam' => Time::now(),
-                        'status' => 'approve',
+                        'status' => 'not approve',
                         'keterangan' => $keterangan,
                         'pesan' => $pesan
                     ]);
@@ -71,7 +71,7 @@ class Pemakaian extends BaseController
                         'pengurangan' => $item['jumlah'],
                         'tujuan_pemakaian' => $tujuan,
                         'tanggal' => Time::now(),
-                        'status' => 'approve',
+                        'status' => 'not approve',
                         'keterangan' => $keterangan,
                         'pesan' => $pesan
                     ]);
