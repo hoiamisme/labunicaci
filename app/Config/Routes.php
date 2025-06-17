@@ -39,11 +39,10 @@ $routes->post('/manajemen/kurang', 'Manajemen::kurang');
 
 // Pemakaian
 $routes->get('pemakaian', 'Pemakaian::index');
-$routes->post('pemakaian/add', 'Pemakaian::prosesAdd');
-$routes->get('pemakaian/view2', 'Pemakaian::view2');
-$routes->post('pemakaian/submit', 'Pemakaian::prosesSubmit');
+$routes->post('pemakaian/submit-review', 'Pemakaian::submitReview');
+$routes->post('pemakaian/submitReview', 'Pemakaian::submitReview');
 
-// LOGBOOK ROUTES - HAPUS FILTER DULU UNTUK TEST
+// Logbook
 $routes->get('logbook', 'Logbook::index');
 $routes->get('logbook/export', 'Logbook::export');
 $routes->get('logbook/statistik', 'Logbook::statistik');
