@@ -70,11 +70,11 @@ class Filters extends BaseFilters
      */
     public array $globals = [
     'before' => [
-        'auth' => ['except' => [
-            'login', 'login/*', // pastikan halaman login tidak kena filter
-            'register', 'register/*', // jika kamu punya halaman registrasi
-        ]],
-    ],
+    'auth' => ['except' => [
+        'login', 'login/*',
+        'registrasi', 'registrasi/*', // ← ini yang perlu ditambahkan
+    ]],
+],
     'after' => [
         'toolbar',
     ],
