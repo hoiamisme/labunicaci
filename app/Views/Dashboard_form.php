@@ -1,26 +1,24 @@
-<?php if (session()->get('logged_in')): ?>
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f1f1f1;">
-        <div>
-            <p>Halo, <?= esc(session('nama_lengkap')) ?> 
-                <span style="background: #007bff; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px;">
-                    <?= strtoupper(esc(session('role'))) ?>
-                </span>
-            </p>
-        </div>
-        <div>
-            <strong><a href="/dashboard" style="margin-right: 10px; color: #007bff;">🏠 Dashboard</a></strong>
-            <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
-            <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
-            <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
-            <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
-            <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
-            <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
-            <a href="/inventory/daftar-instrumen" style="margin-right: 10px;">📏 Daftar Instrumen</a>
-            <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
-            <a href="/logout">🔒 Logout</a>
-        </div>
-    </div>
-<?php endif; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Instrumen</title>
+</head>
+<body>
+    <div>
+    <a href="/dashboard" style="margin-right: 10px;">🏠 Dashboard</a>
+    <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
+    <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
+    <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
+    <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
+    <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
+    <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
+    <a href="/inventory/daftar-instrumen" style="margin-right: 10px;">📏 Daftar Instrumen</a></strong>
+    <a href="/pemberitahuan" style="margin-right: 10px;">🔔 Pemberitahuan</a>
+    <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
+    <a href="/logout">🔒 Logout</a>
+</div>
 
 <!DOCTYPE html>
 <html>
