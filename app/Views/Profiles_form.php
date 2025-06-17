@@ -5,6 +5,14 @@
         </div>
         <div>
             <a href="/dashboard" style="margin-right: 10px;">🏠 Dashboard</a>
+            <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
+            <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
+            <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
+            <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
+            <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
+            <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
+            <a href="/inventory/daftar-instrumen" style="margin-right: 10px;">📏 Daftar Instrumen</a>
+            <strong><a href="/profiles" style="margin-right: 10px; color: #007bff;">👤 Profiles</a></strong>
             <a href="/logout">🔒 Logout</a>
         </div>
     </div>
