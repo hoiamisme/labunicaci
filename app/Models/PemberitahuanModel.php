@@ -35,4 +35,16 @@ class PemberitahuanModel extends Model
             ->get()
             ->getResult();
     }
+
+    public function getLogAlatSedangDipinjam()
+{
+    return $this->db->table('logalat')
+        ->select('logalat.id_logalat, registrasi.nama_lengkap, alat.nama_alat, logalat.pengurangan, logalat.tujuan_pemakaian, logalat.pesan, logalat.tanggal_dipinjam, logalat.tanggal_kembali, logalat.status')
+        ->join('alat', 'alat.id_alat = logalat.id_alat')
+        ->join('registrasi', 'registrasi.id_regis = logalat.id_regis')
+        ->where('logalat.status', 'rent approve')
+        ->get()
+        ->getResult();
+}
+
 }

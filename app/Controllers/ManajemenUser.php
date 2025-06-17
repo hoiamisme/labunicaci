@@ -215,7 +215,7 @@ class ManajemenUser extends BaseController
 
         if (!$userId || !$newPassword || strlen($newPassword) < 6) {
             return $this->response->setJSON([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Password minimal 6 karakter'
             ]);
         }
@@ -224,12 +224,12 @@ class ManajemenUser extends BaseController
 
         if ($result) {
             return $this->response->setJSON([
-                'success' => true, 
+                'success' => true,
                 'message' => 'Password berhasil direset'
             ]);
         } else {
             return $this->response->setJSON([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Gagal reset password'
             ]);
         }

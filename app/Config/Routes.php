@@ -84,6 +84,11 @@ $routes->post('inventory/hapus-instrumen/(:num)', 'Inventory::hapus_instrumen/$1
 $routes->get('pemberitahuan', 'Pemberitahuan::index');
 $routes->post('pemberitahuan/approveAlat', 'Pemberitahuan::approveAlat');
 $routes->post('pemberitahuan/approveBahan', 'Pemberitahuan::approveBahan');
+$routes->post('pemberitahuan/declineAlat', 'Pemberitahuan::declineAlat');
+$routes->post('pemberitahuan/declineBahan', 'Pemberitahuan::declineBahan');
+$routes->post('/pemberitahuan/returnAlat', 'Pemberitahuan::returnAlat');
+
+
 
 
 

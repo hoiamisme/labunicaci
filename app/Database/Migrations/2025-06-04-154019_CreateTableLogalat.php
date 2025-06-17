@@ -55,11 +55,11 @@ class CreateTableLogalat extends Migration
                 'null'       => true,
             ],
             'status' => [
-                'type'       => 'ENUM',
-                'constraint' => ['approve', 'not approve'],
-                'default'    => 'not approve',
-                'null'       => true, // Boleh null jika belum ada data
-            ],
+    'type'       => 'ENUM',
+    'constraint' => ['approve', 'not approve', 'rent approve', 'return approve'],
+    'default'    => 'not approve',
+    'null'       => true,
+],
         ]);
         $this->forge->addKey('id_logalat', true);
         $this->forge->addForeignKey('id_regis', 'registrasi', 'id_regis', 'CASCADE', 'CASCADE');
