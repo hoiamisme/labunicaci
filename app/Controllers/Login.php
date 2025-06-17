@@ -25,13 +25,13 @@ class Login extends Controller
         if ($user) {
             $passValid = password_verify($password, $user['password']);
             if ($passValid) {
-                $sessionData = [
+                $session->set([
+                    'logged_in'     => true,
                     'id_regis'      => $user['id_regis'],
                     'nama_lengkap'  => $user['nama_lengkap'],
                     'email'         => $user['email'],
-                    'logged_in'     => true,
-                ];
-                $session->set($sessionData);
+                    'role'          => $user['role']
+                ]);
                 return redirect()->to('/dashboard');
             } else {
                 return redirect()->back()->with('error', 'Password salah.');
