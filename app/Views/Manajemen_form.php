@@ -36,7 +36,10 @@
     </select><br>
 
     <label>Nama:</label>
-    <input type="text" name="nama" required><br>
+<input type="text" name="nama" id="namaTambahInput" required list="daftarNama"><br>
+<datalist id="daftarNama">
+    <!-- Akan diisi oleh JS -->
+</datalist>
 
     <label>Jumlah:</label>
     <input type="number" name="jumlah" step="any" min="0" required><br>
@@ -97,16 +100,43 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    // === TAMBAH ===
     const jenisTambah = document.getElementById("jenisTambah");
     const satuanTambahWrapper = document.getElementById("satuanTambahWrapper");
     const lokasiTambahInput = document.getElementById("lokasiTambahInput");
+    const namaTambahInput = document.getElementById("namaTambahInput");
+    const daftarNama = document.getElementById("daftarNama");
 
     jenisTambah.addEventListener("change", function () {
+        // Tampilkan/hilangkan satuan
         satuanTambahWrapper.style.display = (jenisTambah.value === "bahan") ? "block" : "none";
+
+        // Kosongkan datalist nama
+        daftarNama.innerHTML = '';
+
+        const jenis = jenisTambah.value;
+        if (jenis === '') return;
+
+        // Ambil daftar nama dari API
+        fetch(`<?= base_url('api/nama-by-jenis') ?>?jenis=${jenis}`)
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(nama => {
+                    const option = document.createElement('option');
+                    option.value = nama;
+                    daftarNama.appendChild(option);
+                });
+            });
     });
 
+    // Auto lowercase input lokasi
     lokasiTambahInput.addEventListener("input", function () {
         lokasiTambahInput.value = lokasiTambahInput.value.toLowerCase();
+    });
+
+    // Auto lowercase input nama
+    namaTambahInput.addEventListener("input", function () {
+        namaTambahInput.value = namaTambahInput.value.toLowerCase();
     });
 
     // === KURANGI ===
@@ -170,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleSatuanKurang();
 });
 </script>
+
 
 </body>
 </html>
