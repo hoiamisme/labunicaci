@@ -61,17 +61,91 @@
 
 <hr>
 
-<!-- Tabel Data -->
-<h3>📋 Data Logbook</h3>
+<!-- TABEL LOGBOOK ALAT -->
+<h3>🔧 Logbook Peminjaman Alat</h3>
 
-<?php if (!empty($logbook)): ?>
+<?php if (!empty($dataAlat)): ?>
     <table border="1" cellpadding="8" cellspacing="0" width="100%">
         <thead>
-            <tr>
+            <tr style="background-color: #e3f2fd;">
                 <th>No</th>
                 <th>Nama Pengguna</th>
-                <th>Nama Item</th>
-                <th>Jenis</th>
+                <th>Nama Alat</th>
+                <th>Penambahan</th>
+                <th>Pengurangan</th>
+                <th>Tanggal Dipinjam</th>
+                <th>Tanggal Kembali</th>
+                <th>Tujuan Pemakaian</th>
+                <th>Status</th>
+                <th>Pesan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $no = 1; ?>
+            <?php foreach ($dataAlat as $alat): ?>
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= esc($alat['nama_lengkap'] ?? '-') ?></td>
+                    <td><?= esc($alat['nama_alat'] ?? '-') ?></td>
+                    <td style="text-align: center;"><?= esc($alat['penambahan'] ?? '0') ?></td>
+                    <td style="text-align: center;"><?= esc($alat['pengurangan'] ?? '0') ?></td>
+                    <td>
+                        <?php if (!empty($alat['tanggal_dipinjam'])): ?>
+                            <?= date('d/m/Y H:i', strtotime($alat['tanggal_dipinjam'])) ?>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (!empty($alat['tanggal_kembali'])): ?>
+                            <?= date('d/m/Y H:i', strtotime($alat['tanggal_kembali'])) ?>
+                        <?php else: ?>
+                            <span style="color: orange;">⏳ Belum Kembali</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= esc($alat['tujuan_pemakaian'] ?? '-') ?></td>
+                    <td>
+                        <?php if (($alat['status'] ?? '') === 'approve'): ?>
+                            <span style="color: green;">✅ Approve</span>
+                        <?php elseif (($alat['status'] ?? '') === 'not approve'): ?>
+                            <span style="color: orange;">⏳ Not Approve</span>
+                        <?php else: ?>
+                            <span style="color: gray;">❓ <?= esc($alat['status'] ?? 'Unknown') ?></span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= esc($alat['pesan'] ?? '-') ?></td>
+                    <td>
+                        <button onclick="showDetail('alat', <?= $alat['id_logalat'] ?>)" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                            👁️ Detail
+                        </button>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+    
+    <p><strong>Total peminjaman alat: <?= count($dataAlat) ?></strong></p>
+    
+<?php else: ?>
+    <div style="text-align: center; padding: 20px; border: 1px solid #ccc; background-color: #f9f9f9;">
+        <h4>📭 Tidak ada data peminjaman alat</h4>
+        <p>Belum ada aktivitas peminjaman alat yang tercatat</p>
+    </div>
+<?php endif; ?>
+
+<hr>
+
+<!-- TABEL LOGBOOK BAHAN -->
+<h3>🧪 Logbook Pemakaian Bahan</h3>
+
+<?php if (!empty($dataBahan)): ?>
+    <table border="1" cellpadding="8" cellspacing="0" width="100%">
+        <thead>
+            <tr style="background-color: #fff3e0;">
+                <th>No</th>
+                <th>Nama Pengguna</th>
+                <th>Nama Bahan</th>
                 <th>Penambahan</th>
                 <th>Pengurangan</th>
                 <th>Tanggal</th>
@@ -83,40 +157,33 @@
         </thead>
         <tbody>
             <?php $no = 1; ?>
-            <?php foreach ($logbook as $row): ?>
+            <?php foreach ($dataBahan as $bahan): ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= esc($row['nama_pengguna'] ?? '-') ?></td>
-                    <td><?= esc($row['nama_item'] ?? '-') ?></td>
+                    <td><?= esc($bahan['nama_lengkap'] ?? '-') ?></td>
+                    <td><?= esc($bahan['nama_bahan'] ?? '-') ?></td>
+                    <td style="text-align: center;"><?= esc($bahan['penambahan'] ?? '0') ?></td>
+                    <td style="text-align: center;"><?= esc($bahan['pengurangan'] ?? '0') ?></td>
                     <td>
-                        <?php if ($row['jenis'] === 'alat'): ?>
-                            🔧 Alat
-                        <?php else: ?>
-                            🧪 Bahan
-                        <?php endif; ?>
-                    </td>
-                    <td><?= esc($row['penambahan'] ?? '0') ?></td>
-                    <td><?= esc($row['pengurangan'] ?? '0') ?></td>
-                    <td>
-                        <?php if ($row['tanggal'] && $row['tanggal'] !== '-'): ?>
-                            <?= date('d/m/Y H:i', strtotime($row['tanggal'])) ?>
+                        <?php if (!empty($bahan['tanggal'])): ?>
+                            <?= date('d/m/Y H:i', strtotime($bahan['tanggal'])) ?>
                         <?php else: ?>
                             -
                         <?php endif; ?>
                     </td>
-                    <td><?= esc($row['tujuan_pemakaian'] ?? '-') ?></td>
+                    <td><?= esc($bahan['tujuan_pemakaian'] ?? '-') ?></td>
                     <td>
-                        <?php if (($row['status'] ?? '') === 'approve'): ?>
+                        <?php if (($bahan['status'] ?? '') === 'approve'): ?>
                             <span style="color: green;">✅ Approve</span>
-                        <?php elseif (($row['status'] ?? '') === 'not approve'): ?>
+                        <?php elseif (($bahan['status'] ?? '') === 'not approve'): ?>
                             <span style="color: orange;">⏳ Not Approve</span>
                         <?php else: ?>
-                            <span style="color: gray;">❓ <?= esc($row['status'] ?? 'Unknown') ?></span>
+                            <span style="color: gray;">❓ <?= esc($bahan['status'] ?? 'Unknown') ?></span>
                         <?php endif; ?>
                     </td>
-                    <td><?= esc($row['pesan'] ?? '-') ?></td>
+                    <td><?= esc($bahan['pesan'] ?? '-') ?></td>
                     <td>
-                        <button onclick="showDetail('<?= $row['jenis'] ?>', <?= $row['id'] ?>)">
+                        <button onclick="showDetail('bahan', <?= $bahan['id_logbahan'] ?>)" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">
                             👁️ Detail
                         </button>
                     </td>
@@ -125,15 +192,20 @@
         </tbody>
     </table>
     
-    <p><strong>Total data: <?= count($logbook) ?></strong></p>
+    <p><strong>Total pemakaian bahan: <?= count($dataBahan) ?></strong></p>
     
 <?php else: ?>
-    <div style="text-align: center; padding: 40px; border: 1px solid #ccc;">
-        <h3>📭 Tidak ada data logbook</h3>
-        <p>Belum ada aktivitas peminjaman atau pemakaian yang tercatat</p>
-        <p><a href="/pemakaian">Mulai input pemakaian →</a></p>
+    <div style="text-align: center; padding: 20px; border: 1px solid #ccc; background-color: #f9f9f9;">
+        <h4>📭 Tidak ada data pemakaian bahan</h4>
+        <p>Belum ada aktivitas pemakaian bahan yang tercatat</p>
     </div>
 <?php endif; ?>
+
+<!-- Link ke Pemakaian -->
+<div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f0f8ff; border-radius: 8px;">
+    <h4>💡 Ingin menambah data baru?</h4>
+    <p><a href="/pemakaian" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">📦 Buka Halaman Pemakaian</a></p>
+</div>
 
 <!-- Modal Detail -->
 <div id="detailModal" style="display: none; position: fixed; top: 50px; left: 50px; right: 50px; bottom: 50px; background: white; border: 3px solid #333; padding: 20px; overflow-y: auto; z-index: 1000;">

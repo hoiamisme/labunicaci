@@ -48,6 +48,8 @@ $routes->get('logbook/export', 'Logbook::export');
 $routes->get('logbook/statistik', 'Logbook::statistik');
 $routes->get('logbook/detail/(:alpha)/(:num)', 'Logbook::detail/$1/$2');
 $routes->post('logbook/update-status', 'Logbook::updateStatus');
+$routes->post('logbook/kembalikan-alat/(:num)', 'Logbook::kembalikanAlat/$1');
+$routes->get('logbook/alat-belum-kembali', 'Logbook::alatBelumKembali');
 
 // User Management  
 $routes->get('user', 'User::index');
