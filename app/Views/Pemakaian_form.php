@@ -66,9 +66,6 @@
     <label>Tujuan:</label>
     <input type="text" name="tujuan" required><br>
 
-    <label>Keterangan:</label>
-    <textarea name="keterangan" required></textarea><br>
-
     <label>Pesan:</label>
     <textarea name="pesan"></textarea><br>
 
