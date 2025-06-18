@@ -71,5 +71,10 @@ $routes->group('', ['filter' => 'role:admin,user'], function($routes) {
 // =================== Khusus User ===================
 $routes->group('', ['filter' => 'role:user'], function($routes) {
     $routes->get('pemakaian', 'Pemakaian::index');
-    $routes->post('pemakaian/submit-review', 'Pemakaian::submitReview');
+    $routes->post('pemakaian/submitReview', 'Pemakaian::submitReview');
+
 });
+
+// Api
+$routes->get('/api/nama-by-jenis', 'Api::namaByJenis');
+$routes->get('/api/detail-item', 'Api::detailItem');
