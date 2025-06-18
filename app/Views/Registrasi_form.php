@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="<?= base_url('css/style_reguler.css') ?>">
     <title>Form Registrasi</title>
     <script>
         // Validasi nama hanya huruf

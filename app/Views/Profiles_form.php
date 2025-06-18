@@ -1,31 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Instrumen</title>
-</head>
-<body>
-    <div>
-    <a href="/dashboard" style="margin-right: 10px;">🏠 Dashboard</a>
-    <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
-    <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
-    <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
-    <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
-    <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
-    <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
-    <a href="/inventory/daftar-instrumen" style="margin-right: 10px;">📏 Daftar Instrumen</a></strong>
-    <a href="/pemberitahuan" style="margin-right: 10px;">🔔 Pemberitahuan</a>
-    <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
-    <a href="/logout">🔒 Logout</a>
-</div>
-
-<!DOCTYPE html>
 <html>
 <head>
     <title>Profil Saya</title>
+
+    <!-- CSS untuk elemen lainnya -->
+    <link rel="stylesheet" href="<?= base_url('css/style_reguler.css') ?>">
 </head>
 <body>
+
+    <?= view('partial/header') ?> <!-- Panggil header -->
+
     <h1>Profil Saya</h1>
 
     <?php if(session()->getFlashdata('error')): ?>
