@@ -1,0 +1,54 @@
+/* 1. Online font (jika tersedia) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* 2. Offline fallback */
+@font-face {
+    font-family: 'RobotoOffline';
+    src: url('/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+/* 3. Gunakan online font dulu, lalu fallback ke lokal */
+body {
+    font-family: 'Roboto', 'RobotoOffline', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #2c3e50;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0 12px 0;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Instrumen</title>
+    <link rel="stylesheet" href="<?= base_url('css/style_bold.css') ?>">
 </head>
 <body>
     <div>
@@ -26,6 +26,7 @@
     <title>Dashboard Laboratorium</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?= base_url('css/style_reguler.css') ?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .dashboard-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
