@@ -22,17 +22,28 @@ class Pemberitahuan extends BaseController
     }
 
     public function index()
-    {
-        $model = new PemberitahuanModel();
+{
+    $model = new PemberitahuanModel();
 
-        $id_regis = session()->get('id_regis'); // ambil dari session
+    $id_regis = session()->get('id_regis');
+    $role = session()->get('role');
 
-        $data['alat'] = $model->getLogAlatNotApproved($id_regis);
-        $data['alatDipinjam'] = $model->getLogAlatSedangDipinjam($id_regis);
+    // Hanya alat yang sedang dipinjam berdasarkan user login
+    $data['alatDipinjam'] = $model->getLogAlatSedangDipinjam($id_regis);
+
+    // Jika role admin, ambil semua log alat dan bahan yang belum disetujui
+    if ($role === 'admin') {
+        $data['alat'] = $model->getAllLogAlatNotApproved();
         $data['bahan'] = $model->getLogBahanNotApproved();
-
-        return view('Pemberitahuan_form', $data);
+    } else {
+        $data['alat'] = [];
+        $data['bahan'] = [];
     }
+
+    return view('Pemberitahuan_form', $data);
+}
+
+
 
     public function approveAlat()
     {

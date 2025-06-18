@@ -47,6 +47,7 @@
     <a href="/logout">🔒 Logout</a>
 </div>
 
+<?php if (session()->get('role') === 'admin'): ?>
 <!-- Daftar Peminjaman Alat (Belum Disetujui) -->
 <h2>Daftar Peminjaman Alat (Belum Disetujui)</h2>
 <table>
@@ -140,7 +141,9 @@
         <?php endif; ?>
     </tbody>
 </table>
+<?php endif; ?>
 
+<?php if (session()->get('role') === 'user'): ?>
 <!-- Daftar Peminjaman Alat (Sedang Dipinjam) -->
 <h2>Daftar Peminjaman Alat (Sedang Dipinjam)</h2>
 <table>
@@ -183,6 +186,7 @@
         <?php endif; ?>
     </tbody>
 </table>
+<?php endif; ?>
 
 </body>
 </html>
