@@ -83,42 +83,6 @@
                         <canvas id="weeklyChart"></canvas>
                     </div>
                 </div>
-
-                <!-- Top Lists -->
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <h5>🏆 Top 5 Alat Sering Dipinjam</h5>
-                        <ul>
-                            <?php foreach ($top_data['alat_sering_dipinjam'] ?? [] as $alat): ?>
-                                <li><?= esc($alat['nama_alat']) ?> - <strong><?= $alat['total_dipinjam'] ?>x</strong></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>🏆 Top 5 Bahan Sering Digunakan</h5>
-                        <ul>
-                            <?php foreach ($top_data['bahan_sering_dipakai'] ?? [] as $bahan): ?>
-                                <li><?= esc($bahan['nama_bahan']) ?> - <strong><?= $bahan['total_digunakan'] ?></strong></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>🏆 Top 5 User Paling Aktif</h5>
-                        <ul>
-                            <?php foreach ($top_data['user_paling_aktif'] ?? [] as $user): ?>
-                                <li><?= esc($user['nama_lengkap']) ?> - <strong><?= $user['total_aktivitas'] ?> aktivitas</strong></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>🏆 Top 5 Lokasi Terpopuler</h5>
-                        <ul>
-                            <?php foreach ($top_data['lokasi_terpopuler'] ?? [] as $lokasi => $jumlah): ?>
-                                <li><?= esc($lokasi) ?> - <strong><?= $jumlah ?> item</strong></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                </div>
         </div>
     </div>
 

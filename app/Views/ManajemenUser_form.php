@@ -8,81 +8,6 @@
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
-    <style>
-        .stats-card {
-            display: inline-block;
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 5px;
-            text-align: center;
-            min-width: 120px;
-        }
-        .stats-number {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff;
-        }
-        .user-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .user-table th, .user-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .user-table th {
-            background-color: #f2f2f2;
-        }
-        .btn {
-            padding: 5px 10px;
-            margin: 2px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-primary { background: #007bff; color: white; }
-        .btn-success { background: #28a745; color: white; }
-        .btn-warning { background: #ffc107; color: black; }
-        .btn-danger { background: #dc3545; color: white; }
-        .btn-info { background: #17a2b8; color: white; }
-        .filter-section {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .pagination a {
-            display: inline-block;
-            padding: 8px 12px;
-            margin: 0 4px;
-            text-decoration: none;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .pagination a.active {
-            background-color: #007bff;
-            color: white;
-        }
-        .role-badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .role-admin { background: #dc3545; color: white; }
-        .role-user { background: #28a745; color: white; }
-    </style>
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 
@@ -94,180 +19,276 @@
         <div class="content-header">
             <div class="container">
                 <h1 class="m-0 text-dark">👥 Manajemen User</h1>
+                <p class="text-muted">Kelola pengguna sistem laboratorium</p>
             </div>
         </div>
 
         <div class="content">
             <div class="container">
-                <p>Kelola pengguna sistem laboratorium</p>
 
                 <?php if (session()->getFlashdata('success')): ?>
-                    <div class="alert alert-success">
-                        ✅ <?= session()->getFlashdata('success') ?>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <i class="fas fa-check-circle"></i> <?= session()->getFlashdata('success') ?>
                     </div>
                 <?php elseif (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger">
-                        ❌ <?= session()->getFlashdata('error') ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <i class="fas fa-exclamation-circle"></i> <?= session()->getFlashdata('error') ?>
                     </div>
                 <?php endif; ?>
 
-                <h3>📊 Statistik User</h3>
-                <div class="mb-3">
-                    <div class="stats-card">
-                        <div class="stats-number"><?= $stats['total_user'] ?></div>
-                        <div>Total User</div>
+                <!-- Statistik User -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h3><i class="fas fa-chart-bar"></i> Statistik User</h3>
                     </div>
-                    <div class="stats-card">
-                        <div class="stats-number"><?= $stats['total_admin'] ?></div>
-                        <div>Admin</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-number"><?= $stats['total_regular_user'] ?></div>
-                        <div>Regular User</div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <a href="<?= site_url('manajemen-user/export') ?>" class="btn btn-success">📄 Export CSV</a>
-                    <a href="<?= site_url('manajemen-user/statistik') ?>" class="btn btn-info">📊 Statistik Detail</a>
-                </div>
-
-                <div class="filter-section">
-                    <form method="GET" action="<?= site_url('manajemen-user') ?>" id="filterForm">
-                        <div class="d-flex align-items-end flex-wrap" style="gap: 10px;">
-                            <div>
-                                <label>🔍 Cari User:</label><br>
-                                <input type="text" name="search" id="searchInput" value="<?= esc($search) ?>" placeholder="Nama, email, cohort, prodi..." class="form-control" style="width: 200px;">
-                            </div>
-                            <div>
-                                <label>👤 Filter Role:</label><br>
-                                <select name="role" id="roleFilter" class="form-control">
-                                    <option value="">Semua Role</option>
-                                    <option value="admin" <?= $role === 'admin' ? 'selected' : '' ?>>Admin</option>
-                                    <option value="user" <?= $role === 'user' ? 'selected' : '' ?>>User</option>
-                                </select>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary">🔍 Filter</button>
-                                <a href="<?= site_url('manajemen-user') ?>" class="btn btn-warning">🔄 Reset</a>
+                    <div class="col-md-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h2 class="card-title"><?= $stats['total_user'] ?></h2>
+                                <p class="card-text">Total User</p>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h2 class="card-title"><?= $stats['total_admin'] ?></h2>
+                                <p class="card-text">Admin</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h2 class="card-title"><?= $stats['total_regular_user'] ?></h2>
+                                <p class="card-text">Regular User</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <h3>📋 Daftar User</h3>
-                <p>Menampilkan <?= count($users) ?> dari <?= $totalUsers ?> user</p>
+                <!-- Action Buttons -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <a href="<?= site_url('manajemen-user/export') ?>" class="btn btn-success">
+                            <i class="fas fa-file-csv"></i> Export CSV
+                        </a>
+                    </div>
+                </div>
 
-                <?php if (!empty($users)): ?>
-                    <table class="user-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Foto</th>
-                                <th>Nama Lengkap</th>
-                                <th>Email</th>
-                                <th>Cohort</th>
-                                <th>Program Studi</th>
-                                <th>Role</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = ($currentPage - 1) * $perPage + 1; ?>
-                            <?php foreach ($users as $user): ?>
-                                <tr>
-                                    <td><?= $no++ ?></td>
-                                    <td>
-                                        <?php if (!empty($user['foto_profil'])): ?>
-                                            <img src="<?= base_url('uploads/profiles/' . $user['foto_profil']) ?>" 
-                                                    width="40" height="40" style="border-radius: 50%; object-fit: cover;" 
-                                                    alt="Foto <?= esc($user['nama_lengkap']) ?>">
-                                        <?php else: ?>
-                                            <div style="width: 40px; height: 40px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                                👤
-                                            </div>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?= esc($user['nama_lengkap']) ?></td>
-                                    <td><?= esc($user['email']) ?></td>
-                                    <td><?= esc($user['cohort']) ?></td>
-                                    <td><?= esc($user['prodi']) ?></td>
-                                    <td>
-                                        <span class="role-badge role-<?= $user['role'] ?>">
-                                            <?= $user['role'] === 'admin' ? '👑 Admin' : '👤 User' ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button onclick="showDetail(<?= $user['id_regis'] ?>)" class="btn btn-info">👁️ Detail</button>
-                                        
-                                        <?php if ($user['role'] === 'user'): ?>
-                                            <button onclick="updateRole(<?= $user['id_regis'] ?>, 'admin')" class="btn btn-warning">👑 Jadikan Admin</button>
-                                        <?php else: ?>
-                                            <button onclick="updateRole(<?= $user['id_regis'] ?>, 'user')" class="btn btn-warning">👤 Jadikan User</button>
-                                        <?php endif; ?>
-                                        
-                                        <button onclick="resetPassword(<?= $user['id_regis'] ?>)" class="btn btn-success">🔑 Reset Password</button>
-                                        
-                                        <?php if ($user['id_regis'] != session()->get('id_regis')): ?>
-                                            <button onclick="deleteUser(<?= $user['id_regis'] ?>, '<?= esc($user['nama_lengkap']) ?>')" class="btn btn-danger">🗑️ Hapus</button>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                <!-- Filter Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-filter"></i> Filter & Pencarian</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="GET" action="<?= site_url('manajemen-user') ?>" id="filterForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><i class="fas fa-search"></i> Cari User:</label>
+                                        <input type="text" name="search" id="searchInput" value="<?= esc($search) ?>" 
+                                               placeholder="Nama, email, cohort, prodi..." class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><i class="fas fa-user-tag"></i> Filter Role:</label>
+                                        <select name="role" id="roleFilter" class="form-control">
+                                            <option value="">Semua Role</option>
+                                            <option value="admin" <?= $role === 'admin' ? 'selected' : '' ?>>Admin</option>
+                                            <option value="user" <?= $role === 'user' ? 'selected' : '' ?>>User</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>&nbsp;</label><br>
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            <i class="fas fa-search"></i> Filter
+                                        </button>
+                                        <a href="<?= site_url('manajemen-user') ?>" class="btn btn-warning btn-block mt-1">
+                                            <i class="fas fa-redo"></i> Reset
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-                    <?php if ($totalPages > 1): ?>
-                        <div class="pagination">
-                            <?php if ($currentPage > 1): ?>
-                                <a href="<?= site_url('manajemen-user?page=' . ($currentPage - 1) . '&search=' . urlencode($search) . '&role=' . urlencode($role)) ?>">« Previous</a>
+                <!-- Daftar User -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-users"></i> Daftar User</h5>
+                        <p class="mb-0">Menampilkan <?= count($users) ?> dari <?= $totalUsers ?> user</p>
+                    </div>
+                    <div class="card-body p-0">
+                        <?php if (!empty($users)): ?>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover mb-0">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Foto</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Email</th>
+                                            <th>Cohort</th>
+                                            <th>Program Studi</th>
+                                            <th>Role</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = ($currentPage - 1) * $perPage + 1; ?>
+                                        <?php foreach ($users as $user): ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td>
+                                                    <?php if (!empty($user['foto_profil'])): ?>
+                                                        <img src="<?= base_url('uploads/profiles/' . $user['foto_profil']) ?>" 
+                                                             class="img-circle img-size-32" alt="Foto <?= esc($user['nama_lengkap']) ?>">
+                                                    <?php else: ?>
+                                                        <div class="img-circle bg-secondary d-flex align-items-center justify-content-center" 
+                                                             style="width: 32px; height: 32px; font-size: 14px;">
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td><strong><?= esc($user['nama_lengkap']) ?></strong></td>
+                                                <td><?= esc($user['email']) ?></td>
+                                                <td><?= esc($user['cohort']) ?></td>
+                                                <td><?= esc($user['prodi']) ?></td>
+                                                <td>
+                                                    <?php if ($user['role'] === 'admin'): ?>
+                                                        <span class="badge badge-warning badge-lg">
+                                                            <i class="fas fa-crown"></i> Admin
+                                                        </span>
+                                                    <?php else: ?>
+                                                        <span class="badge badge-primary badge-lg">
+                                                            <i class="fas fa-user"></i> User
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group-vertical btn-group-sm">
+                                                        <button onclick="showDetail(<?= $user['id_regis'] ?>)" 
+                                                                class="btn btn-info btn-sm mb-1">
+                                                            <i class="fas fa-eye"></i> Detail
+                                                        </button>
+                                                        
+                                                        <?php if ($user['role'] === 'user'): ?>
+                                                            <button onclick="updateRole(<?= $user['id_regis'] ?>, 'admin')" 
+                                                                    class="btn btn-warning btn-sm mb-1">
+                                                                <i class="fas fa-crown"></i> Jadikan Admin
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <button onclick="updateRole(<?= $user['id_regis'] ?>, 'user')" 
+                                                                    class="btn btn-secondary btn-sm mb-1">
+                                                                <i class="fas fa-user"></i> Jadikan User
+                                                            </button>
+                                                        <?php endif; ?>
+                                                        
+                                                        <button onclick="resetPassword(<?= $user['id_regis'] ?>)" 
+                                                                class="btn btn-success btn-sm mb-1">
+                                                            <i class="fas fa-key"></i> Reset Password
+                                                        </button>
+                                                        
+                                                        <?php if ($user['id_regis'] != session()->get('id_regis')): ?>
+                                                            <button onclick="deleteUser(<?= $user['id_regis'] ?>, '<?= esc($user['nama_lengkap']) ?>')" 
+                                                                    class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-trash"></i> Hapus
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Pagination -->
+                            <?php if ($totalPages > 1): ?>
+                                <div class="card-footer">
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center mb-0">
+                                            <?php if ($currentPage > 1): ?>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="<?= site_url('manajemen-user?page=' . ($currentPage - 1) . '&search=' . urlencode($search) . '&role=' . urlencode($role)) ?>">
+                                                        <i class="fas fa-chevron-left"></i> Previous
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+
+                                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                                <li class="page-item <?= $i == $currentPage ? 'active' : '' ?>">
+                                                    <a class="page-link" href="<?= site_url('manajemen-user?page=' . $i . '&search=' . urlencode($search) . '&role=' . urlencode($role)) ?>">
+                                                        <?= $i ?>
+                                                    </a>
+                                                </li>
+                                            <?php endfor; ?>
+
+                                            <?php if ($currentPage < $totalPages): ?>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="<?= site_url('manajemen-user?page=' . ($currentPage + 1) . '&search=' . urlencode($search) . '&role=' . urlencode($role)) ?>">
+                                                        Next <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
+                                    </nav>
+                                </div>
                             <?php endif; ?>
 
-                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                                <a href="<?= site_url('manajemen-user?page=' . $i . '&search=' . urlencode($search) . '&role=' . urlencode($role)) ?>" 
-                                   class="<?= $i == $currentPage ? 'active' : '' ?>"><?= $i ?></a>
-                            <?php endfor; ?>
-
-                            <?php if ($currentPage < $totalPages): ?>
-                                <a href="<?= site_url('manajemen-user?page=' . ($currentPage + 1) . '&search=' . urlencode($search) . '&role=' . urlencode($role)) ?>">Next »</a>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
-
-                <?php else: ?>
-                    <div class="card text-center py-4">
-                        <div class="card-body">
-                            <h3>👥 Tidak ada user ditemukan</h3>
-                            <p>Tidak ada user yang sesuai dengan filter yang dipilih</p>
-                        </div>
+                        <?php else: ?>
+                            <div class="text-center py-5">
+                                <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                <h4 class="text-muted">Tidak ada user ditemukan</h4>
+                                <p class="text-muted">Tidak ada user yang sesuai dengan filter yang dipilih</p>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
+                </div>
 
-                <div id="detailModal" class="modal" style="display: none;">
-                    <div class="modal-dialog modal-lg">
+                <!-- Detail Modal -->
+                <div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">👤 Detail User</h5>
-                                <button type="button" class="close" onclick="closeModal()">
+                            <div class="modal-header bg-info">
+                                <h5 class="modal-title text-white">
+                                    <i class="fas fa-user"></i> Detail User
+                                </h5>
+                                <button type="button" class="close text-white" data-dismiss="modal">
                                     <span>&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body" id="detailContent">
-                                <p>Loading...</p>
+                                <div class="text-center">
+                                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+                                    <p class="mt-2">Loading...</p>
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" onclick="closeModal()">❌ Tutup</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <i class="fas fa-times"></i> Tutup
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="resetPasswordModal" class="modal" style="display: none;">
-                    <div class="modal-dialog">
+                <!-- Reset Password Modal -->
+                <div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">🔑 Reset Password</h5>
-                                <button type="button" class="close" onclick="closeResetModal()">
+                            <div class="modal-header bg-success">
+                                <h5 class="modal-title text-white">
+                                    <i class="fas fa-key"></i> Reset Password
+                                </h5>
+                                <button type="button" class="close text-white" data-dismiss="modal">
                                     <span>&times;</span>
                                 </button>
                             </div>
@@ -275,21 +296,28 @@
                                 <div class="modal-body">
                                     <input type="hidden" id="resetUserId" name="user_id">
                                     <div class="form-group">
-                                        <label for="newPassword">Password Baru:</label>
-                                        <input type="password" id="newPassword" class="form-control" required minlength="6">
-                                        <small class="form-text text-muted">Minimal 6 karakter</small>
+                                        <label for="newPassword">
+                                            <i class="fas fa-lock"></i> Password Baru:
+                                        </label>
+                                        <input type="password" id="newPassword" class="form-control" 
+                                               required minlength="6" placeholder="Minimal 6 karakter">
+                                        <small class="form-text text-muted">
+                                            <i class="fas fa-info-circle"></i> Password minimal 6 karakter
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-warning" onclick="closeResetModal()">Batal</button>
-                                    <button type="submit" class="btn btn-success">Reset Password</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        <i class="fas fa-times"></i> Batal
+                                    </button>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-key"></i> Reset Password
+                                    </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
-                <div id="overlay" class="modal-backdrop fade show" style="display: none;" onclick="closeModal()"></div>
 
             </div>
         </div>
@@ -303,45 +331,63 @@
 <script>
 // Show Detail Modal
 function showDetail(userId) {
-    document.getElementById('detailContent').innerHTML = '<p>⏳ Loading data...</p>';
+    document.getElementById('detailContent').innerHTML = `
+        <div class="text-center">
+            <i class="fas fa-spinner fa-spin fa-2x text-primary"></i>
+            <p class="mt-2">⏳ Loading data...</p>
+        </div>`;
+    
     $('#detailModal').modal('show');
     
     $.get('<?= site_url("manajemen-user/detail/") ?>' + userId)
         .done(function(response) {
             if (response.success) {
                 const user = response.data;
-                let content = '<div class="row">';
+                let content = `
+                    <div class="row">
+                        <div class="col-md-4 text-center">`;
                 
-                // Foto
-                content += '<div class="col-md-4 text-center">';
                 if (user.foto_profil) {
-                    content += '<img src="<?= base_url("uploads/profiles/") ?>' + user.foto_profil + '" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">';
+                    content += `<img src="<?= base_url("uploads/profiles/") ?>${user.foto_profil}" 
+                                     class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">`;
                 } else {
-                    content += '<div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px; font-size: 48px;">👤</div>';
+                    content += `<div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" 
+                                     style="width: 150px; height: 150px; font-size: 48px;">
+                                    <i class="fas fa-user text-muted"></i>
+                                </div>`;
                 }
-                content += '</div>';
                 
-                // Info
-                content += '<div class="col-md-8">';
-                content += '<h4>📋 Informasi User</h4>';
-                content += '<table class="table table-bordered table-striped">';
-                content += '<tr><th>ID</th><td>' + user.id_regis + '</td></tr>';
-                content += '<tr><th>Nama</th><td>' + user.nama_lengkap + '</td></tr>';
-                content += '<tr><th>Email</th><td>' + user.email + '</td></tr>';
-                content += '<tr><th>Cohort</th><td>' + user.cohort + '</td></tr>';
-                content += '<tr><th>Program Studi</th><td>' + user.prodi + '</td></tr>';
-                content += '<tr><th>Role</th><td><span class="role-badge role-' + user.role + '">' + (user.role === 'admin' ? '👑 Admin' : '👤 User') + '</span></td></tr>';
-                content += '</table>';
-                content += '</div>';
-                content += '</div>';
+                content += `</div>
+                        <div class="col-md-8">
+                            <h4><i class="fas fa-info-circle"></i> Informasi User</h4>
+                            <table class="table table-bordered">
+                                <tr><th><i class="fas fa-hashtag"></i> ID</th><td>${user.id_regis}</td></tr>
+                                <tr><th><i class="fas fa-user"></i> Nama</th><td><strong>${user.nama_lengkap}</strong></td></tr>
+                                <tr><th><i class="fas fa-envelope"></i> Email</th><td>${user.email}</td></tr>
+                                <tr><th><i class="fas fa-calendar"></i> Cohort</th><td>${user.cohort}</td></tr>
+                                <tr><th><i class="fas fa-graduation-cap"></i> Program Studi</th><td>${user.prodi}</td></tr>
+                                <tr><th><i class="fas fa-user-tag"></i> Role</th><td>
+                                    ${user.role === 'admin' 
+                                        ? '<span class="badge badge-warning badge-lg"><i class="fas fa-crown"></i> Admin</span>' 
+                                        : '<span class="badge badge-primary badge-lg"><i class="fas fa-user"></i> User</span>'}
+                                </td></tr>
+                            </table>
+                        </div>
+                    </div>`;
                 
                 document.getElementById('detailContent').innerHTML = content;
             } else {
-                document.getElementById('detailContent').innerHTML = '<p class="text-danger">❌ ' + response.message + '</p>';
+                document.getElementById('detailContent').innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i> ${response.message}
+                    </div>`;
             }
         })
         .fail(function() {
-            document.getElementById('detailContent').innerHTML = '<p class="text-danger">❌ Gagal memuat data</p>';
+            document.getElementById('detailContent').innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i> Gagal memuat data
+                </div>`;
         });
 }
 
@@ -413,7 +459,7 @@ document.getElementById('resetPasswordForm').addEventListener('submit', function
     .done(function(response) {
         if (response.success) {
             alert('✅ ' + response.message);
-            closeResetModal();
+            $('#resetPasswordModal').modal('hide');
         } else {
             alert('❌ ' + response.message);
         }
@@ -423,48 +469,18 @@ document.getElementById('resetPasswordForm').addEventListener('submit', function
     });
 });
 
-// Close Modals
-function closeModal() {
-    $('#detailModal').modal('hide');
-}
-
-function closeResetModal() {
-    $('#resetPasswordModal').modal('hide');
-}
-
 // Auto submit on search input (dengan debounce)
 let searchTimeout;
 document.getElementById('searchInput').addEventListener('input', function() {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(function() {
         document.getElementById('filterForm').submit();
-    }, 500); // Submit setelah 500ms user berhenti mengetik
+    }, 500);
 });
 
 // Auto submit on role change
 document.getElementById('roleFilter').addEventListener('change', function() {
     document.getElementById('filterForm').submit();
-});
-
-// Prevent form submit on Enter if search is empty
-document.getElementById('filterForm').addEventListener('submit', function(e) {
-    const search = document.getElementById('searchInput').value.trim();
-    const role = document.getElementById('roleFilter').value;
-    
-    // Jika tidak ada filter sama sekali, tidak perlu submit
-    if (!search && !role) {
-        e.preventDefault();
-        window.location.href = '<?= site_url('manajemen-user') ?>';
-        return false;
-    }
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeModal();
-        closeResetModal();
-    }
 });
 </script>
 

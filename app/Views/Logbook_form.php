@@ -47,7 +47,6 @@
 
                 <div class="mb-3">
                     <a href="<?= site_url('logbook/export') ?>" class="btn btn-outline-primary">📄 Export CSV</a>
-                    <a href="<?= site_url('logbook/statistik') ?>" class="btn btn-outline-info">📊 Statistik Detail</a>
                 </div>
 
                 <!-- Logbook Alat -->

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class LoginModel extends Model
 {
     protected $table            = 'registrasi';
-    protected $primaryKey       = 'id_login';
+    protected $primaryKey       = 'id_regis';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

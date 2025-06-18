@@ -28,8 +28,12 @@ $routes->group('', ['filter' => 'role:admin'], function($routes) {
     $routes->post('/manajemen/kurang', 'Manajemen::kurang');
 
     $routes->get('user', 'User::index');
+    
+    // ManajemenUser routes - PERBAIKAN: Tambahkan semua routes yang diperlukan
     $routes->get('manajemen-user', 'ManajemenUser::index');
     $routes->get('manajemen-user/export', 'ManajemenUser::export');
+    $routes->get('manajemen-user/statistik', 'ManajemenUser::statistik');
+    $routes->get('manajemen-user/detail/(:num)', 'ManajemenUser::detail/$1'); // PERBAIKAN: Tambahkan route detail
     $routes->post('manajemen-user/update-role', 'ManajemenUser::updateRole');
     $routes->post('manajemen-user/delete-user', 'ManajemenUser::deleteUser');
     $routes->post('manajemen-user/reset-password', 'ManajemenUser::resetPassword');
@@ -72,9 +76,14 @@ $routes->group('', ['filter' => 'role:admin,user'], function($routes) {
 $routes->group('', ['filter' => 'role:user'], function($routes) {
     $routes->get('pemakaian', 'Pemakaian::index');
     $routes->post('pemakaian/submitReview', 'Pemakaian::submitReview');
-
 });
 
-// Api
-$routes->get('/api/nama-by-jenis', 'Api::namaByJenis');
-$routes->get('/api/detail-item', 'Api::detailItem');
+// Api Routes
+$routes->get('/api/nama-by-jenis', 'Pemakaian::getNamaByJenis');
+$routes->get('/api/detail-item', 'Pemakaian::getDetailItem');
+
+// Debug routes (hapus setelah testing)
+$routes->get('test-email', 'TestEmail::index');
+$routes->get('test-basic-email', 'TestEmail::testBasicEmail');
+$routes->get('debug-email', 'DebugEmail::inspectEmail');
+$routes->get('debug-direct-email', 'DebugEmail::testDirectEmail');

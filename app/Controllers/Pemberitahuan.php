@@ -7,18 +7,21 @@ use App\Models\PemberitahuanModel;
 use App\Models\AlatModel;
 use App\Models\BahanModel;
 use CodeIgniter\I18n\Time;
+use App\Libraries\EmailService;
 
 class Pemberitahuan extends BaseController
 {
     protected $db;
     protected $alatModel;
     protected $bahanModel;
+    protected $emailService;
 
     public function __construct()
     {
         $this->db = \Config\Database::connect();
         $this->alatModel = new AlatModel();
         $this->bahanModel = new BahanModel();
+        $this->emailService = new EmailService();
     }
 
     public function index()
@@ -48,7 +51,15 @@ class Pemberitahuan extends BaseController
     public function approveAlat()
     {
         $id = $this->request->getPost('id_logalat');
-        $log = $this->db->table('logalat')->where('id_logalat', $id)->get()->getRowArray();
+        
+        // Ambil data lengkap untuk email
+        $log = $this->db->table('logalat')
+            ->select('logalat.*, registrasi.email, registrasi.nama_lengkap, alat.nama_alat')
+            ->join('registrasi', 'registrasi.id_regis = logalat.id_regis')
+            ->join('alat', 'alat.id_alat = logalat.id_alat')
+            ->where('id_logalat', $id)
+            ->get()
+            ->getRowArray();
 
         if ($log) {
             $alat = $this->alatModel->find($log['id_alat']);
@@ -68,7 +79,17 @@ class Pemberitahuan extends BaseController
 
                 $this->db->table('logalat')->where('id_logalat', $id)->update(['status' => 'rent approve']);
 
-                return redirect()->back()->with('message', 'Peminjaman disetujui, status menjadi "rent approve".');
+                // Kirim email notifikasi approve
+                $this->emailService->sendStatusUpdateNotification(
+                    $log['email'], 
+                    $log['nama_lengkap'], 
+                    'approve', 
+                    'alat', 
+                    $log['nama_alat'],
+                    'Permintaan peminjaman disetujui. Silakan datang ke laboratorium.'
+                );
+
+                return redirect()->back()->with('message', '✅ Peminjaman disetujui dan email notifikasi telah dikirim.');
 
             } elseif ($log['status'] === 'return approve') {
                 $this->alatModel->update($alat['id_alat'], [
@@ -80,7 +101,17 @@ class Pemberitahuan extends BaseController
                     'tanggal_kembali' => Time::now()
                 ]);
 
-                return redirect()->back()->with('message', 'Pengembalian dikonfirmasi, status menjadi "approve".');
+                // Kirim email notifikasi pengembalian
+                $this->emailService->sendStatusUpdateNotification(
+                    $log['email'], 
+                    $log['nama_lengkap'], 
+                    'approve', 
+                    'alat', 
+                    $log['nama_alat'],
+                    'Pengembalian alat telah dikonfirmasi. Terima kasih.'
+                );
+
+                return redirect()->back()->with('message', '✅ Pengembalian dikonfirmasi dan email notifikasi telah dikirim.');
             }
         }
 
@@ -90,8 +121,15 @@ class Pemberitahuan extends BaseController
     public function approveBahan()
     {
         $id = $this->request->getPost('id_logbahan');
-
-        $log = $this->db->table('logbahan')->where('id_logbahan', $id)->get()->getRowArray();
+        
+        // Ambil data lengkap untuk email
+        $log = $this->db->table('logbahan')
+            ->select('logbahan.*, registrasi.email, registrasi.nama_lengkap, bahan.nama_bahan')
+            ->join('registrasi', 'registrasi.id_regis = logbahan.id_regis')
+            ->join('bahan', 'bahan.id_bahan = logbahan.id_bahan')
+            ->where('id_logbahan', $id)
+            ->get()
+            ->getRowArray();
 
         if ($log) {
             $bahan = $this->bahanModel->find($log['id_bahan']);
@@ -107,7 +145,17 @@ class Pemberitahuan extends BaseController
 
                 $this->db->table('logbahan')->where('id_logbahan', $id)->update(['status' => 'approve']);
 
-                return redirect()->back()->with('message', 'Bahan disetujui dan stok telah diperbarui.');
+                // Kirim email notifikasi approve
+                $this->emailService->sendStatusUpdateNotification(
+                    $log['email'], 
+                    $log['nama_lengkap'], 
+                    'approve', 
+                    'bahan', 
+                    $log['nama_bahan'],
+                    'Permintaan pengambilan bahan disetujui. Silakan datang ke laboratorium.'
+                );
+
+                return redirect()->back()->with('message', '✅ Bahan disetujui dan email notifikasi telah dikirim.');
             }
         }
 
@@ -117,15 +165,59 @@ class Pemberitahuan extends BaseController
     public function declineAlat()
     {
         $id = $this->request->getPost('id_logalat');
+        
+        // Ambil data sebelum dihapus untuk email
+        $log = $this->db->table('logalat')
+            ->select('logalat.*, registrasi.email, registrasi.nama_lengkap, alat.nama_alat')
+            ->join('registrasi', 'registrasi.id_regis = logalat.id_regis')
+            ->join('alat', 'alat.id_alat = logalat.id_alat')
+            ->where('id_logalat', $id)
+            ->get()
+            ->getRowArray();
+
+        if ($log) {
+            // Kirim email notifikasi penolakan
+            $this->emailService->sendStatusUpdateNotification(
+                $log['email'], 
+                $log['nama_lengkap'], 
+                'decline', 
+                'alat', 
+                $log['nama_alat'],
+                'Permintaan ditolak. Silakan hubungi admin untuk informasi lebih lanjut.'
+            );
+        }
+
         $this->db->table('logalat')->where('id_logalat', $id)->delete();
-        return redirect()->back()->with('message', 'Permintaan peminjaman alat telah ditolak dan dihapus.');
+        return redirect()->back()->with('message', '❌ Permintaan ditolak dan email notifikasi telah dikirim.');
     }
 
     public function declineBahan()
     {
         $id = $this->request->getPost('id_logbahan');
+        
+        // Ambil data sebelum dihapus untuk email
+        $log = $this->db->table('logbahan')
+            ->select('logbahan.*, registrasi.email, registrasi.nama_lengkap, bahan.nama_bahan')
+            ->join('registrasi', 'registrasi.id_regis = logbahan.id_regis')
+            ->join('bahan', 'bahan.id_bahan = logbahan.id_bahan')
+            ->where('id_logbahan', $id)
+            ->get()
+            ->getRowArray();
+
+        if ($log) {
+            // Kirim email notifikasi penolakan
+            $this->emailService->sendStatusUpdateNotification(
+                $log['email'], 
+                $log['nama_lengkap'], 
+                'decline', 
+                'bahan', 
+                $log['nama_bahan'],
+                'Permintaan ditolak. Silakan hubungi admin untuk informasi lebih lanjut.'
+            );
+        }
+
         $this->db->table('logbahan')->where('id_logbahan', $id)->delete();
-        return redirect()->back()->with('message', 'Permintaan pengambilan bahan telah ditolak dan dihapus.');
+        return redirect()->back()->with('message', '❌ Permintaan ditolak dan email notifikasi telah dikirim.');
     }
 
     public function returnAlat()

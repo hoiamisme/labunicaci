@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -31,6 +32,22 @@
 
         <div class="content">
             <div class="container">
+
+                <!-- Success/Error Messages -->
+                <?php if (session()->getFlashdata('success')): ?>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?= session()->getFlashdata('success') ?>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if (session()->getFlashdata('error')): ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?= session()->getFlashdata('error') ?>
+                    </div>
+                <?php endif; ?>
+
                 <!-- FORM KURANGI -->
                 <div class="card mb-4">
                     <div class="card-header">Form Kurangi</div>
@@ -42,28 +59,33 @@
                                     <option value="">-- Pilih Jenis --</option>
                                     <option value="alat">Alat</option>
                                     <option value="bahan">Bahan</option>
-                                    <option value="instrumen">Instrumen</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label>Nama:</label>
-                                <select name="nama" id="namaKurang" class="form-control" required></select>
+                                <select name="nama" id="namaKurang" class="form-control" required>
+                                    <option value="">-- Pilih Jenis Dulu --</option>
+                                </select>
                             </div>
 
                             <div id="satuanKurangWrapper" class="form-group">
                                 <label>Satuan:</label>
-                                <select id="satuanKurang" class="form-control" disabled></select>
+                                <select id="satuanKurang" class="form-control" disabled>
+                                    <option value="">Pilih nama dulu</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
                                 <label>Jumlah:</label>
-                                <input type="number" id="jumlahKurang" min="0" class="form-control" required>
+                                <input type="number" id="jumlahKurang" min="1" class="form-control" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Lokasi:</label>
-                                <select id="lokasiKurang" class="form-control" required></select>
+                                <select id="lokasiKurang" class="form-control" required>
+                                    <option value="">Pilih nama dulu</option>
+                                </select>
                             </div>
 
                             <button type="button" onclick="tambahKeReview()" class="btn btn-primary">Tambah ke Review</button>
@@ -76,6 +98,7 @@
                     <div class="card-header">Review Pemakaian</div>
                     <div class="card-body">
                         <form action="<?= base_url('pemakaian/submitReview') ?>" method="post" id="formReview">
+                            <?= csrf_field() ?>
                             <input type="hidden" name="review_data" id="reviewDataInput">
                             <div id="tabelReview"></div>
 
@@ -86,7 +109,7 @@
 
                             <div class="form-group">
                                 <label>Pesan:</label>
-                                <textarea name="pesan" class="form-control"></textarea>
+                                <textarea name="pesan" class="form-control" rows="3"></textarea>
                             </div>
 
                             <button type="submit" id="submitButton" class="btn btn-success" disabled>Submit Semua</button>
@@ -123,7 +146,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const jenis = jenisKurang.value;
             toggleSatuanKurang();
 
-            namaKurang.innerHTML = '<option>Memuat...</option>';
+            namaKurang.innerHTML = '<option value="">Memuat...</option>';
+
+            if (!jenis) {
+                namaKurang.innerHTML = '<option value="">-- Pilih Jenis Dulu --</option>';
+                return;
+            }
 
             fetch(`<?= base_url('api/nama-by-jenis') ?>?jenis=${jenis}`)
                 .then(res => res.json())
@@ -137,6 +165,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     lokasiKurang.innerHTML = '<option value="">Pilih nama dulu</option>';
                     jumlahKurang.value = '';
                     jumlahKurang.removeAttribute('max');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    namaKurang.innerHTML = '<option value="">Error loading data</option>';
                 });
         });
     }
@@ -159,10 +191,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         jumlahKurang.max = item.jumlah_bahan;
                     } else {
                         satuanKurang.innerHTML += `<option value="-">-</option>`;
-                        jumlahKurang.max = jenis === "alat" ? item.jumlah_alat : item.jumlah_instrumen;
+                        jumlahKurang.max = item.jumlah_alat;
                     }
 
-                    lokasiKurang.innerHTML += `<option value="${item.lokasi.toLowerCase()}">${item.lokasi.toLowerCase()}</option>`;
+                    lokasiKurang.innerHTML += `<option value="${item.lokasi}">${item.lokasi}</option>`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                 });
         });
     }
@@ -216,6 +251,7 @@ function tambahKeReview() {
     reviewList.push({ jenis, nama, jumlah, lokasi });
     renderReview();
 
+    // Reset form
     document.getElementById('jumlahKurang').value = '';
     document.getElementById('namaKurang').selectedIndex = 0;
     document.getElementById('lokasiKurang').selectedIndex = 0;

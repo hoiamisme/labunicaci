@@ -19,7 +19,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container">
-                <h1 class="m-0 text-dark">🔧 Daftar Alat</h1>
+                <h1 class="m-0 text-dark">📏 Daftar Instrumen</h1>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
             <div class="container">
 
                 <!-- FORM PENCARIAN -->
-                <form method="GET" action="/inventory/daftar-alat" class="form-inline mb-3">
+                <form method="GET" action="/inventory/daftar-instrumen" class="form-inline mb-3">
                     <input type="text" name="search" class="form-control mr-2" placeholder="🔍 Cari nama alat..." value="<?= esc($search ?? '') ?>">
                     <select name="location" class="form-control mr-2">
                         <option value="">📍 Semua Lokasi</option>
@@ -64,7 +64,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama Alat</th>
+                                    <th>Nama Instrumen</th>
                                     <th>Jumlah</th>
                                     <th>Lokasi</th>
                                     <?php if (session()->get('role') === 'admin'): ?>
@@ -76,18 +76,18 @@
                                 <?php if (!empty($items)): ?>
                                     <?php foreach ($items as $item): ?>
                                         <tr>
-                                            <td><?= $item['id_alat'] ?></td>
-                                            <td><?= esc($item['nama_alat']) ?></td>
+                                            <td><?= $item['id_instrumen'] ?></td>
+                                            <td><?= esc($item['nama_instrumen']) ?></td>
                                             <td>
-                                                <?= $item['jumlah_alat'] ?>
-                                                <?php if ($item['jumlah_alat'] <= 5): ?>
+                                                <?= $item['jumlah_instrumen'] ?>
+                                                <?php if ($item['jumlah_instrumen'] <= 3): ?>
                                                     <span class="text-danger">⚠️</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td><?= esc($item['lokasi']) ?></td>
                                             <?php if (session()->get('role') === 'admin'): ?>
                                                 <td>
-                                                    <button onclick="hapusAlat(<?= $item['id_alat'] ?>, '<?= esc($item['nama_alat']) ?>')" class="btn btn-danger btn-sm">
+                                                    <button onclick="hapusAlat(<?= $item['id_instrumen'] ?>, '<?= esc($item['nama_instrumen']) ?>')" class="btn btn-danger btn-sm">
                                                         🗑️ Hapus
                                                     </button>
                                                 </td>
