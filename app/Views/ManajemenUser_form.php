@@ -10,78 +10,304 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #2ec4b6;
+            --warning-color: #ff9f1c;
+            --danger-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-color);
+        }
+
+        .content-wrapper {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 25px 0;
+        }
+
+        /* Stats Cards */
         .stats-card {
-            display: inline-block;
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 5px;
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
             text-align: center;
-            min-width: 120px;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
         .stats-number {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
-            color: #007bff;
+            color: var(--primary-color);
+            margin-bottom: 8px;
         }
+
+        /* Table Styling */
         .user-table {
             width: 100%;
-            border-collapse: collapse;
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 0;
             margin-top: 20px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .user-table th, .user-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+
         .user-table th {
-            background-color: #f2f2f2;
-        }
-        .btn {
-            padding: 5px 10px;
-            margin: 2px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-primary { background: #007bff; color: white; }
-        .btn-success { background: #28a745; color: white; }
-        .btn-warning { background: #ffc107; color: black; }
-        .btn-danger { background: #dc3545; color: white; }
-        .btn-info { background: #17a2b8; color: white; }
-        .filter-section {
-            background: #f8f9fa;
+            background: var(--primary-color);
+            color: white;
             padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
+
+        .user-table td {
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: middle;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border-bottom: 1px solid #eee;
         }
-        .pagination a {
-            display: inline-block;
-            padding: 8px 12px;
-            margin: 0 4px;
-            text-decoration: none;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+
+        .user-table tr:hover {
+            background-color: rgba(67, 97, 238, 0.05);
         }
-        .pagination a.active {
-            background-color: #007bff;
+
+        /* Specific column widths */
+        .user-table th:nth-child(1), /* NO */
+        .user-table td:nth-child(1) {
+            width: 5%;
+        }
+
+        .user-table th:nth-child(2), /* FOTO */
+        .user-table td:nth-child(2) {
+            width: 8%;
+        }
+
+        .user-table th:nth-child(3), /* NAMA LENGKAP */
+        .user-table td:nth-child(3) {
+            width: 15%;
+        }
+
+        .user-table th:nth-child(4), /* EMAIL */
+        .user-table td:nth-child(4) {
+            width: 20%;
+        }
+
+        .user-table th:nth-child(5), /* COHORT */
+        .user-table td:nth-child(5) {
+            width: 10%;
+        }
+
+        .user-table th:nth-child(6), /* PROGRAM STUDI */
+        .user-table td:nth-child(6) {
+            width: 12%;
+        }
+
+        .user-table th:nth-child(7), /* ROLE */
+        .user-table td:nth-child(7) {
+            width: 10%;
+        }
+
+        .user-table th:nth-child(8), /* AKSI */
+        .user-table td:nth-child(8) {
+            width: 20%;
+        }
+
+        /* Button group in action column */
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            margin: 3px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            min-width: 100px; /* Ensure minimum width */
+            white-space: nowrap; /* Prevent text wrapping */
+            text-overflow: clip; /* Show full text */
+            overflow: visible; /* Ensure text is visible */
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
         }
-        .role-badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color) 0%, #4cc9f0 100%);
+            color: white;
         }
-        .role-admin { background: #dc3545; color: white; }
-        .role-user { background: #28a745; color: white; }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color) 0%, #ffbf69 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #ff4d6d 100%);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #4895ef 0%, #4cc9f0 100%);
+            color: white;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.15);
+        }
+
+        /* Role Badges */
+        .role-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            min-width: 80px; /* Ensure minimum width */
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .role-admin {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #ff4d6d 100%);
+            color: white;
+        }
+
+        .role-user {
+            background: linear-gradient(135deg, var(--success-color) 0%, #4cc9f0 100%);
+            color: white;
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 0 5px;
+            text-decoration: none;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .pagination a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pagination a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Modal */
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .close {
+            color: white;
+            opacity: 1;
+        }
+
+        /* Alert Messages */
+        .alert {
+            border-radius: 15px;
+            border: none;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Page Title */
+        .content-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .user-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
     </style>
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">

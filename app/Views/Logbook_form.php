@@ -7,6 +7,200 @@
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #2ec4b6;
+            --info-color: #4895ef;
+            --warning-color: #ff9f1c;
+            --danger-color: #f72585;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+        }
+
+        .content-wrapper {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .content-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .content-header p {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        /* Statistics Section */
+        .mb-4 h3 {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-left: 15px;
+            border-left: 5px solid var(--info-color);
+        }
+
+        .mb-4 ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .mb-4 li {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .mb-4 li:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .card-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Tables */
+        .table {
+            margin: 0;
+        }
+
+        .table thead th {
+            background: #f8f9fa;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        /* Buttons */
+        .btn {
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-info {
+            background: var(--info-color);
+            border: none;
+        }
+
+        /* Modal */
+        .modal-content {
+            border: none;
+            border-radius: 20px;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 20px 20px 0 0;
+            padding: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-body h5 {
+            color: var(--primary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-body li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Alert */
+        .alert {
+            border-radius: 15px;
+            border: none;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .mb-4 ul {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-responsive {
+                border-radius: 15px;
+            }
+        }
+    </style>
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 <div class="wrapper">
