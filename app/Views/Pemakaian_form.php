@@ -1,123 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= base_url('css/style_reguler.css') ?>">
-    <title>Daftar Instrumen</title>
-</head>
-<body>
-    <div>
-    <a href="/dashboard" style="margin-right: 10px;">🏠 Dashboard</a>
-    <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
-    <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
-    <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
-    <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
-    <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
-    <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
-    <a href="/inventory/daftar-instrumen" style="margin-right: 10px;">📏 Daftar Instrumen</a></strong>
-    <a href="/pemberitahuan" style="margin-right: 10px;">🔔 Pemberitahuan</a>
-    <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
-    <a href="/logout">🔒 Logout</a>
-</div>
-
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Manajemen Alat dan Bahan</title>
+    <title>Pemakaian Alat</title>
+
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
+
     <style>
         .hidden { display: none; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 5px; }
     </style>
 </head>
-<body>
+<body class="hold-transition layout-navbar-fixed layout-top-nav">
 
-<h2>Kurangi Data</h2>
-<form id="formKurang">
-    <label>Jenis:</label>
-    <select name="jenis" id="jenisKurang" required>
-        <option value="">-- Pilih Jenis --</option>
-        <option value="alat">Alat</option>
-        <option value="bahan">Bahan</option>
-    </select><br>
+<div class="wrapper">
 
-    <label>Nama:</label>
-    <select name="nama" id="namaKurang" required></select><br>
+    <!-- Navbar -->
+    <?= view('partial/header') ?>
 
-    <div id="satuanKurangWrapper">
-        <label>Satuan:</label>
-        <select id="satuanKurang" disabled></select><br>
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container">
+                <h1 class="m-0 text-dark">🤝 Peminjaman Alat</h1>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <!-- FORM KURANGI -->
+                <div class="card mb-4">
+                    <div class="card-header">Form Kurangi</div>
+                    <div class="card-body">
+                        <form id="formKurang">
+                            <div class="form-group">
+                                <label>Jenis:</label>
+                                <select name="jenis" id="jenisKurang" class="form-control" required>
+                                    <option value="">-- Pilih Jenis --</option>
+                                    <option value="alat">Alat</option>
+                                    <option value="bahan">Bahan</option>
+                                    <option value="instrumen">Instrumen</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nama:</label>
+                                <select name="nama" id="namaKurang" class="form-control" required></select>
+                            </div>
+
+                            <div id="satuanKurangWrapper" class="form-group">
+                                <label>Satuan:</label>
+                                <select id="satuanKurang" class="form-control" disabled></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jumlah:</label>
+                                <input type="number" id="jumlahKurang" min="0" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Lokasi:</label>
+                                <select id="lokasiKurang" class="form-control" required></select>
+                            </div>
+
+                            <button type="button" onclick="tambahKeReview()" class="btn btn-primary">Tambah ke Review</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- FORM REVIEW -->
+                <div class="card">
+                    <div class="card-header">Review Pemakaian</div>
+                    <div class="card-body">
+                        <form action="<?= base_url('pemakaian/submitReview') ?>" method="post" id="formReview">
+                            <input type="hidden" name="review_data" id="reviewDataInput">
+                            <div id="tabelReview"></div>
+
+                            <div class="form-group">
+                                <label>Tujuan:</label>
+                                <input type="text" name="tujuan" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Pesan:</label>
+                                <textarea name="pesan" class="form-control"></textarea>
+                            </div>
+
+                            <button type="submit" id="submitButton" class="btn btn-success" disabled>Submit Semua</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
 
-    <label>Jumlah:</label>
-    <input type="number" id="jumlahKurang" min="0" required><br>
+<!-- AdminLTE JS -->
+<script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') ?>"></script>
+<script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('adminlte/AdminLTE-3.2.0/dist/js/adminlte.min.js') ?>"></script>
 
-    <label>Lokasi:</label>
-    <select id="lokasiKurang" required></select><br>
-
-    <button type="button" onclick="tambahKeReview()">Tambah ke Review</button>
-</form>
-
-<hr>
-
-<h2>Review Pemakaian</h2>
-<form action="<?= base_url('pemakaian/submitReview') ?>" method="post" id="formReview">
-    <input type="hidden" name="review_data" id="reviewDataInput">
-
-    <div id="tabelReview"></div>
-
-    <label>Tujuan:</label>
-    <input type="text" name="tujuan" required><br>
-
-    <label>Pesan:</label>
-    <textarea name="pesan"></textarea><br>
-
-    <button type="submit" id="submitButton" disabled>Submit Semua</button>
-
-</form>
-
+<!-- Script Form Logic -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // === TAMBAH ===
-    const jenisTambah = document.getElementById("jenisTambah");
-    const satuanTambahWrapper = document.getElementById("satuanTambahWrapper");
-    const lokasiTambahInput = document.getElementById("lokasiTambahInput");
-    const namaTambahInput = document.getElementById("namaTambahInput");
-    const daftarNama = document.getElementById("daftarNama");
-
-    if (jenisTambah) {
-        jenisTambah.addEventListener("change", function () {
-            satuanTambahWrapper.style.display = (jenisTambah.value === "bahan") ? "block" : "none";
-
-            daftarNama.innerHTML = '';
-            const jenis = jenisTambah.value;
-            if (!jenis) return;
-
-            fetch(`<?= base_url('api/nama-by-jenis') ?>?jenis=${jenis}`)
-                .then(res => res.json())
-                .then(data => {
-                    data.forEach(nama => {
-                        const option = document.createElement('option');
-                        option.value = nama;
-                        daftarNama.appendChild(option);
-                    });
-                });
-        });
-    }
-
-    if (lokasiTambahInput) {
-        lokasiTambahInput.addEventListener("input", function () {
-            lokasiTambahInput.value = lokasiTambahInput.value.toLowerCase();
-        });
-    }
-
-    if (namaTambahInput) {
-        namaTambahInput.addEventListener("input", function () {
-            namaTambahInput.value = namaTambahInput.value.toLowerCase();
-        });
-    }
-
-    // === KURANGI ===
     const jenisKurang = document.getElementById("jenisKurang");
     const namaKurang = document.getElementById("namaKurang");
     const satuanKurang = document.getElementById("satuanKurang");
@@ -178,10 +167,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    toggleSatuanKurang(); // Initial setup
+    toggleSatuanKurang();
 });
 
-// === REVIEW LIST ===
 let reviewList = [];
 
 function renderReview() {
@@ -191,21 +179,21 @@ function renderReview() {
 
     if (reviewList.length === 0) {
         container.innerHTML = '<p>Belum ada data ditambahkan.</p>';
-        if (inputHidden) inputHidden.value = '';
-        if (submitButton) submitButton.disabled = true;
+        inputHidden.value = '';
+        submitButton.disabled = true;
         return;
     }
 
     let html = '<ul>';
     reviewList.forEach((item, i) => {
         html += `<li><strong>${item.jenis}</strong>: [${item.nama}, ${item.jumlah}, ${item.lokasi}]
-                 <button type="button" onclick="hapusReview(${i})">❌</button></li>`;
+                 <button type="button" class="btn btn-danger btn-sm ml-2" onclick="hapusReview(${i})">❌</button></li>`;
     });
     html += '</ul>';
 
     container.innerHTML = html;
-    if (inputHidden) inputHidden.value = JSON.stringify(reviewList);
-    if (submitButton) submitButton.disabled = false;
+    inputHidden.value = JSON.stringify(reviewList);
+    submitButton.disabled = false;
 }
 
 function tambahKeReview() {
@@ -228,7 +216,6 @@ function tambahKeReview() {
     reviewList.push({ jenis, nama, jumlah, lokasi });
     renderReview();
 
-    // Reset form
     document.getElementById('jumlahKurang').value = '';
     document.getElementById('namaKurang').selectedIndex = 0;
     document.getElementById('lokasiKurang').selectedIndex = 0;

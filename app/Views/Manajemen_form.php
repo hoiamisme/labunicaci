@@ -1,109 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= base_url('css/style_reguler.css') ?>">
-    <title>Daftar Instrumen</title>
-</head>
-<body>
-    <div>
-    <a href="/dashboard" style="margin-right: 10px;">🏠 Dashboard</a>
-    <a href="/manajemen" style="margin-right: 10px;">🛠️ Manajemen</a>
-    <a href="/pemakaian" style="margin-right: 10px;">📦 Pemakaian</a>
-    <a href="/logbook" style="margin-right: 10px;">📚 Logbook</a>
-    <a href="/manajemen-user" style="margin-right: 10px;">👥 Manajemen User</a>
-    <a href="/inventory/daftar-alat" style="margin-right: 10px;">🔧 Daftar Alat</a>
-    <a href="/inventory/daftar-bahan" style="margin-right: 10px;">🧪 Daftar Bahan</a>
-    <a href="/inventory/daftar-instrumen" style="margin-right: 10px;">📏 Daftar Instrumen</a></strong>
-    <a href="/pemberitahuan" style="margin-right: 10px;">🔔 Pemberitahuan</a>
-    <a href="/profiles" style="margin-right: 10px;">👤 Profiles</a>
-    <a href="/logout">🔒 Logout</a>
-</div>
-
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <title>Manajemen Alat dan Bahan</title>
-    <style>
-        .hidden { display: none; }
-    </style>
+
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
 </head>
-<body>
+<body class="hold-transition layout-navbar-fixed layout-top-nav">
+<div class="wrapper">
 
-<h2>Tambah Data</h2>
-<form action="<?= base_url('manajemen/tambah') ?>" method="post" id="formTambah">
-    <label>Jenis:</label>
-    <select name="jenis" id="jenisTambah" required>
-        <option value="">-- Pilih Jenis --</option>
-        <option value="alat">Alat</option>
-        <option value="bahan">Bahan</option>
-        <option value="instrumen">Instrumen</option>
-    </select><br>
+    <!-- Navbar -->
+    <?= view('partial/header') ?>
 
-    <label>Nama:</label>
-<input type="text" name="nama" id="namaTambahInput" required list="daftarNama"><br>
-<datalist id="daftarNama">
-    <!-- Akan diisi oleh JS -->
-</datalist>
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container">
+                <h1 class="m-0 text-dark">🛠️ Manajemen Alat dan Bahan</h1>
+            </div>
+        </div>
 
-    <label>Jumlah:</label>
-    <input type="number" name="jumlah" step="any" min="0" required><br>
+        <div class="content">
+            <div class="container">
 
-    <div id="satuanTambahWrapper">
-        <label>Satuan:</label>
-        <select name="satuan">
-            <option value="gram">gram</option>
-            <option value="mililiter">mililiter</option>
-        </select><br>
+                <!-- Form Tambah -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">Tambah Data</div>
+                    <div class="card-body">
+                        <form action="<?= base_url('manajemen/tambah') ?>" method="post" id="formTambah">
+                            <div class="form-group">
+                                <label>Jenis:</label>
+                                <select name="jenis" id="jenisTambah" class="form-control" required>
+                                    <option value="">-- Pilih Jenis --</option>
+                                    <option value="alat">Alat</option>
+                                    <option value="bahan">Bahan</option>
+                                    <option value="instrumen">Instrumen</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nama:</label>
+                                <input type="text" name="nama" id="namaTambahInput" class="form-control" required list="daftarNama">
+                                <datalist id="daftarNama"></datalist>
+                            </div>
+
+                            <div class="form-group" id="satuanTambahWrapper">
+                                <label>Satuan:</label>
+                                <select name="satuan" class="form-control">
+                                    <option value="gram">gram</option>
+                                    <option value="mililiter">mililiter</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Lokasi:</label>
+                                <input type="text" name="lokasi" id="lokasiTambahInput" class="form-control" required list="daftarLokasi">
+                                <datalist id="daftarLokasi">
+                                    <?php foreach($lokasi as $lok): ?>
+                                        <option value="<?= strtolower($lok) ?>"></option>
+                                    <?php endforeach; ?>
+                                </datalist>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jumlah:</label>
+                                <input type="number" name="jumlah" step="any" min="0" class="form-control" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Tambah</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Form Kurangi -->
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">Kurangi Data</div>
+                    <div class="card-body">
+                        <form action="<?= base_url('manajemen/kurang') ?>" method="post" id="formKurang">
+                            <div class="form-group">
+                                <label>Jenis:</label>
+                                <select name="jenis" id="jenisKurang" class="form-control" required>
+                                    <option value="">-- Pilih Jenis --</option>
+                                    <option value="alat">Alat</option>
+                                    <option value="bahan">Bahan</option>
+                                    <option value="instrumen">Instrumen</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nama:</label>
+                                <select name="nama" id="namaKurang" class="form-control" required>
+                                    <option value="">Pilih jenis dulu</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="satuanKurangWrapper">
+                                <label>Satuan:</label>
+                                <select name="satuan" id="satuanKurang" class="form-control" required>
+                                    <option value="">Pilih nama dulu</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jumlah:</label>
+                                <input type="number" name="jumlah" id="jumlahKurang" min="0" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Lokasi:</label>
+                                <select name="lokasi" id="lokasiKurang" class="form-control" required>
+                                    <option value="">Pilih nama dulu</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-danger">Kurangi</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <label>Lokasi:</label>
-    <input type="text" name="lokasi" id="lokasiTambahInput" required list="daftarLokasi"><br>
-    <datalist id="daftarLokasi">
-        <?php foreach($lokasi as $lok): ?>
-            <option value="<?= strtolower($lok) ?>"></option>
-        <?php endforeach; ?>
-    </datalist>
+</div>
 
-    <button type="submit">Tambah</button>
-</form>
-
-<hr>
-
-<h2>Kurangi Data</h2>
-<form action="<?= base_url('manajemen/kurang') ?>" method="post" id="formKurang">
-    <label>Jenis:</label>
-    <select name="jenis" id="jenisKurang" required>
-        <option value="">-- Pilih Jenis --</option>
-        <option value="alat">Alat</option>
-        <option value="bahan">Bahan</option>
-        <option value="instrumen">Instrumen</option>
-    </select><br>
-
-    <label>Nama:</label>
-    <select name="nama" id="namaKurang" required>
-        <option value="">Pilih jenis dulu</option>
-    </select><br>
-
-    <div id="satuanKurangWrapper">
-        <label>Satuan:</label>
-        <select name="satuan" id="satuanKurang" required>
-            <option value="">Pilih nama dulu</option>
-        </select><br>
-    </div>
-
-    <label>Jumlah:</label>
-    <input type="number" name="jumlah" id="jumlahKurang" min="0" required><br>
-
-    <label>Lokasi:</label>
-    <select name="lokasi" id="lokasiKurang" required>
-        <option value="">Pilih nama dulu</option>
-    </select><br>
-
-    <button type="submit">Kurangi</button>
-</form>
+<!-- AdminLTE JS -->
+<script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') ?>"></script>
+<script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('adminlte/AdminLTE-3.2.0/dist/js/adminlte.min.js') ?>"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -115,16 +141,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const daftarNama = document.getElementById("daftarNama");
 
     jenisTambah.addEventListener("change", function () {
-        // Tampilkan/hilangkan satuan
         satuanTambahWrapper.style.display = (jenisTambah.value === "bahan") ? "block" : "none";
-
-        // Kosongkan datalist nama
         daftarNama.innerHTML = '';
 
         const jenis = jenisTambah.value;
-        if (jenis === '') return;
+        if (!jenis) return;
 
-        // Ambil daftar nama dari API
         fetch(`<?= base_url('api/nama-by-jenis') ?>?jenis=${jenis}`)
             .then(res => res.json())
             .then(data => {
@@ -136,13 +158,11 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    // Auto lowercase input lokasi
-    lokasiTambahInput.addEventListener("input", function () {
+    lokasiTambahInput.addEventListener("input", () => {
         lokasiTambahInput.value = lokasiTambahInput.value.toLowerCase();
     });
 
-    // Auto lowercase input nama
-    namaTambahInput.addEventListener("input", function () {
+    namaTambahInput.addEventListener("input", () => {
         namaTambahInput.value = namaTambahInput.value.toLowerCase();
     });
 
@@ -203,7 +223,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    // Set visibilitas satuan saat pertama kali load
     toggleSatuanKurang();
 });
 </script>
