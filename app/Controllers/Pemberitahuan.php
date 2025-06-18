@@ -25,8 +25,10 @@ class Pemberitahuan extends BaseController
     {
         $model = new PemberitahuanModel();
 
-        $data['alat'] = $model->getLogAlatNotApproved();
-        $data['alatDipinjam'] = $model->getLogAlatSedangDipinjam();
+        $id_regis = session()->get('id_regis'); // ambil dari session
+
+        $data['alat'] = $model->getLogAlatNotApproved($id_regis);
+        $data['alatDipinjam'] = $model->getLogAlatSedangDipinjam($id_regis);
         $data['bahan'] = $model->getLogBahanNotApproved();
 
         return view('Pemberitahuan_form', $data);

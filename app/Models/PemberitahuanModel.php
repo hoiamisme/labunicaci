@@ -14,17 +14,17 @@ class PemberitahuanModel extends Model
         $this->db = \Config\Database::connect();
     }
 
-    public function getLogAlatNotApproved()
-{
-    return $this->db->table('logalat')
-        ->select('logalat.id_logalat, registrasi.nama_lengkap, alat.nama_alat, logalat.pengurangan, logalat.tujuan_pemakaian, logalat.pesan, logalat.tanggal_dipinjam, logalat.tanggal_kembali, logalat.status')
-        ->join('alat', 'alat.id_alat = logalat.id_alat')
-        ->join('registrasi', 'registrasi.id_regis = logalat.id_regis')
-        ->whereIn('logalat.status', ['not approve', 'return approve']) // UBAH DI SINI
-        ->get()
-        ->getResult();
-}
-
+    public function getLogAlatNotApproved($id_regis)
+    {
+        return $this->db->table('logalat')
+            ->select('logalat.id_logalat, registrasi.nama_lengkap, alat.nama_alat, logalat.pengurangan, logalat.tujuan_pemakaian, logalat.pesan, logalat.tanggal_dipinjam, logalat.tanggal_kembali, logalat.status')
+            ->join('alat', 'alat.id_alat = logalat.id_alat')
+            ->join('registrasi', 'registrasi.id_regis = logalat.id_regis')
+            ->where('logalat.id_regis', $id_regis) // filter berdasarkan user login
+            ->whereIn('logalat.status', ['not approve', 'return approve'])
+            ->get()
+            ->getResult();
+    }
 
     public function getLogBahanNotApproved()
     {
@@ -37,15 +37,15 @@ class PemberitahuanModel extends Model
             ->getResult();
     }
 
-    public function getLogAlatSedangDipinjam()
-{
-    return $this->db->table('logalat')
-        ->select('logalat.id_logalat, registrasi.nama_lengkap, alat.nama_alat, logalat.pengurangan, logalat.tujuan_pemakaian, logalat.pesan, logalat.tanggal_dipinjam, logalat.tanggal_kembali, logalat.status')
-        ->join('alat', 'alat.id_alat = logalat.id_alat')
-        ->join('registrasi', 'registrasi.id_regis = logalat.id_regis')
-        ->where('logalat.status', 'rent approve')
-        ->get()
-        ->getResult();
-}
-
+    public function getLogAlatSedangDipinjam($id_regis)
+    {
+        return $this->db->table('logalat')
+            ->select('logalat.id_logalat, registrasi.nama_lengkap, alat.nama_alat, logalat.pengurangan, logalat.tujuan_pemakaian, logalat.pesan, logalat.tanggal_dipinjam, logalat.tanggal_kembali, logalat.status')
+            ->join('alat', 'alat.id_alat = logalat.id_alat')
+            ->join('registrasi', 'registrasi.id_regis = logalat.id_regis')
+            ->where('logalat.id_regis', $id_regis) // filter berdasarkan user login
+            ->where('logalat.status', 'rent approve')
+            ->get()
+            ->getResult();
+    }
 }
