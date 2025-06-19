@@ -45,7 +45,7 @@ class EmailService
             log_message('info', 'Admin emails: ' . implode(', ', $adminEmails));
 
             // Generate email content
-            $subject = '🔔 PERMINTAAN PEMAKAIAN BARU - Lab UNICACI';
+            $subject = '🔔 PERMINTAAN PEMAKAIAN BARU - Labunica';
             $message = $this->generatePermintaanEmailContent($user, $itemsData, $tujuan, $pesan);
             
             if (empty($message)) {
@@ -55,7 +55,7 @@ class EmailService
 
             // Setup email
             $this->email->clear();
-            $this->email->setFrom('faliefwaluyo@gmail.com', 'Lab UNICACI System');
+            $this->email->setFrom('faliefwaluyo@gmail.com', 'Labunica System');
             $this->email->setTo($adminEmails);
             $this->email->setSubject($subject);
             $this->email->setMessage($message);
@@ -115,7 +115,7 @@ class EmailService
                     <!-- Header -->
                     <div style='background: linear-gradient(135deg, #dc3545, #c82333); color: white; padding: 30px; text-align: center;'>
                         <h1 style='margin: 0; font-size: 24px;'>🚨 PERMINTAAN PEMAKAIAN BARU</h1>
-                        <p style='margin: 10px 0 0 0; font-size: 16px;'>Lab UNICACI System</p>
+                        <p style='margin: 10px 0 0 0; font-size: 16px;'>Labunica System</p>
                     </div>
                     
                     <!-- Content -->
@@ -174,7 +174,7 @@ class EmailService
                     
                     <!-- Footer -->
                     <div style='background: #6c757d; color: white; padding: 20px; text-align: center;'>
-                        <p style='margin: 0; font-weight: bold;'>© 2024 Laboratorium UNICACI</p>
+                        <p style='margin: 0; font-weight: bold;'>© 2024 Labunica</p>
                         <p style='margin: 5px 0 0 0;'>Sistem Manajemen Laboratorium Terintegrasi</p>
                         <small>📧 Email ini dikirim secara otomatis, mohon jangan membalas langsung.</small>
                     </div>
@@ -202,7 +202,7 @@ class EmailService
             $message = $this->generateStatusUpdateEmailContent($userName, $status, $itemType, $itemName, $pesan);
 
             $this->email->clear();
-            $this->email->setFrom('faliefwaluyo@gmail.com', 'Lab UNICACI System');
+            $this->email->setFrom('faliefwaluyo@gmail.com', 'Labunica System');
             $this->email->setTo($userEmail);
             $this->email->setSubject($subject);
             $this->email->setMessage($message);
@@ -238,7 +238,7 @@ class EmailService
                 
                 <div style='background: {$statusColor}; color: white; padding: 30px; text-align: center;'>
                     <h1 style='margin: 0;'>{$statusIcon} PERMINTAAN {$statusText}</h1>
-                    <p style='margin: 10px 0 0 0;'>Lab UNICACI System</p>
+                    <p style='margin: 10px 0 0 0;'>Labunica System</p>
                 </div>
                 
                 <div style='padding: 30px;'>
@@ -272,7 +272,7 @@ class EmailService
                 </div>
                 
                 <div style='background: #6c757d; color: white; padding: 20px; text-align: center;'>
-                    <p style='margin: 0;'><strong>© 2024 Laboratorium UNICACI</strong></p>
+                    <p style='margin: 0;'><strong>© 2024 Labunica</strong></p>
                     <small>📧 Email ini dikirim secara otomatis, mohon jangan membalas langsung.</small>
                 </div>
             </div>
