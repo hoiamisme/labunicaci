@@ -1,0 +1,134 @@
+:root {
+    --primary-color: #2b2dff;       /* Dominan biru */
+    --accent-color: #ffcb42;        /* Aksen kuning */
+    --bg-light: #e0e7ff;            /* Biru muda lembut */
+    --white: #ffffff;
+    --dark: #1a1a2e;
+    --text-muted: #9ca3af;
+    --bg-gradient: linear-gradient(to right, #2b2dff, #4b32c3);
+}
+
+/* === Body & Global Font === */
+body {
+    background: var(--bg-light);
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+}
+
+/* === Header & Title === */
+.dashboard-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 2.2rem;
+}
+
+.welcome-text {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+/* === Section Titles === */
+.section-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 2rem 0 1rem;
+}
+
+/* === Info Boxes === */
+.info-box {
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    color: #fff;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    text-align: center;
+}
+
+.bg-info {
+    background: #4a6cf7 !important;
+}
+
+.bg-success {
+    background: #00b894 !important;
+}
+
+.bg-warning {
+    background: #fbc531 !important;
+    color: #222;
+}
+
+.bg-danger {
+    background: #e74c3c !important;
+}
+
+.bg-primary {
+    background: var(--primary-color) !important;
+}
+
+.info-box-content {
+    font-size: 1rem;
+}
+
+/* === Chart Containers === */
+.chart-container {
+    background: var(--white);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+/* === Alerts === */
+.alert {
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* === Buttons (like alert actions) === */
+.btn-warning {
+    background-color: var(--accent-color);
+    border: none;
+    color: #222;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.btn-warning:hover {
+    background-color: #f0b429;
+    color: #111;
+}
+
+/* === Utility === */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+h5 {
+    font-weight: 600;
+}
+
+/* === Chemistry-inspired Decorations (optional custom classes) === */
+.chem-bg {
+    background-image: url('/img/chemistry-pattern.svg'); /* kamu bisa buat pattern chemistry SVG */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}

@@ -7,13 +7,16 @@
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/profiles.css') ?>">
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 
 <div class="wrapper">
 
     <!-- Navbar -->
-    <?= view('partial/header') ?> <!-- Pastikan file ini juga pakai path yang sama -->
+    <?= view('partial/header') ?>
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">
@@ -34,7 +37,7 @@
 
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white">
-                        <h3 class="card-title mb-0"><i class="fas fa-user-cog"></i> Informasi Akun</h3>
+                        <h3 class="card-title"><i class="fas fa-user-cog"></i> Informasi Akun</h3>
                     </div>
                     <div class="card-body">
                         <p><strong>Nama:</strong> <?= esc($user['nama_lengkap']) ?></p>
@@ -58,7 +61,7 @@
 
                             <div class="form-group">
                                 <label>Upload Foto Profil:</label>
-                                <input type="file" name="foto_profil" class="form-control-file">
+                                <input type="file" name="foto_profil" class="form-control-file custom-file-input">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Update</button>

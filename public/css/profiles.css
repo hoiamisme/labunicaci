@@ -1,0 +1,126 @@
+/* ===== LANDING PAGE STYLE - PROFIL ===== */
+
+body {
+    background-color: #3b2dd2; /* warna biru ungu cerah */
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    color: white;
+}
+
+/* Header Title */
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffc107; /* kuning cerah */
+}
+
+/* Card */
+.card {
+    background-color: white;
+    color: #333;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Card Header */
+.card-header {
+    background-color: #ff9800;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    padding: 15px 25px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-title i {
+    margin-right: 8px;
+}
+
+/* Foto Profil */
+.img-thumbnail {
+    border: 4px solid #ffc107;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.03);
+}
+
+/* Alert */
+.alert {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Form */
+.form-group label {
+    font-weight: 600;
+    color: #444;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.form-control, .form-control-file {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-control:focus {
+    border-color: #3b2dd2;
+    box-shadow: 0 0 0 3px rgba(59, 45, 210, 0.2);
+}
+
+.form-control-file {
+    background-color: #f5f5f5;
+}
+
+/* Tombol */
+.btn-primary {
+    background-color: #ff9800;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 8px;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e68900;
+}
+
+/* Spacing */
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.pt-3 {
+    padding-top: 1rem;
+}
+
+/* Container */
+.container {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+/* Judul Section */
+.content-header {
+    margin-bottom: 20px;
+}
+
+/* Tambahan gaya untuk tombol file upload */
+.custom-file-input {
+    cursor: pointer;
+}

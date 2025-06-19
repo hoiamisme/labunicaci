@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
     
-    <!-- Additional Google Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
+    <!-- Custom Dashboard CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -28,8 +31,10 @@
         <div class="content-header">
             <div class="container">
                 <h1 class="dashboard-title">🏠 Dashboard Laboratorium</h1>
-                <p class="welcome-text">Selamat datang, <strong><?= esc($user_info['nama'] ?? 'User') ?></strong>!
-                <span class="text-muted">(<?= date('l, d F Y') ?>)</span></p>
+                <p class="welcome-text">
+                    Selamat datang, <strong><?= esc($user_info['nama'] ?? 'User') ?></strong>!
+                    <span class="text-muted">(<?= date('l, d F Y') ?>)</span>
+                </p>
 
                 <?php if (isset($error_message)): ?>
                     <div class="alert alert-danger"><?= esc($error_message) ?></div>
@@ -96,9 +101,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
-
 </div>
 
 <!-- AdminLTE Scripts -->
@@ -106,7 +111,7 @@
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/dist/js/adminlte.min.js') ?>"></script>
 
-<!-- Chart.js -->
+<!-- Chart.js Setup -->
 <script>
 <?php if (!empty($chart_data['inventory_chart'])): ?>
 const inventoryCtx = document.getElementById('inventoryChart').getContext('2d');
@@ -123,7 +128,6 @@ new Chart(inventoryCtx, {
     options: {
         responsive: true,
         plugins: {
-
             legend: { position: 'bottom' }
         }
     }
@@ -157,10 +161,8 @@ new Chart(weeklyCtx, {
 });
 <?php endif; ?>
 
-setTimeout(() => location.reload(), 300000); // refresh tiap 5 menit
+setTimeout(() => location.reload(), 300000); // Refresh setiap 5 menit
 </script>
 
 </body>
 </html>
-
-

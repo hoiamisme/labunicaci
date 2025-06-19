@@ -1,0 +1,30 @@
+/* === Utility === */
+.hidden {
+    display: none;
+}
+ul {
+    padding-left: 20px;
+}
+li {
+    margin-bottom: 5px;
+}
+
+/* === Review List === */
+#tabelReview ul {
+    list-style: disc;
+    margin-top: 10px;
+}
+
+#tabelReview li {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+}
+
+/* === Buttons === */
+.btn-sm {
+    padding: 3px 8px;
+    font-size: 12px;
+}

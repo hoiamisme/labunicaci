@@ -1,0 +1,140 @@
+/* ======= WARNA DASAR ======= */
+:root {
+    --primary-color: #3b2fc9;
+    --accent-color: #fcbf49;
+    --background-light: #fcebd3;
+    --text-dark: #1e1e1e;
+    --text-muted: #666;
+    --white: #ffffff;
+    --info-blue: #4dabf7;
+}
+
+/* ======= BODY ======= */
+body {
+    background-color: var(--background-light);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+}
+
+/* ======= HEADER & SECTION TITLES ======= */
+.content-header h1 {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.3em;
+}
+
+.content-header p {
+    color: var(--text-muted);
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* ======= STATISTIK SECTION ======= */
+ul {
+    padding-left: 20px;
+}
+ul li {
+    margin-bottom: 6px;
+    color: var(--text-dark);
+    font-size: 1em;
+}
+
+/* ======= TABLES ======= */
+.table {
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.table th {
+    background-color: var(--primary-color);
+    color: var(--white);
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle !important;
+    text-align: center;
+    background-color: #fffefa;
+}
+
+/* ======= BUTTONS ======= */
+.btn-sm.btn-info {
+    font-size: 13px;
+    padding: 5px 10px;
+    background-color: var(--info-blue);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    transition: 0.3s ease;
+}
+
+.btn-sm.btn-info:hover {
+    background-color: #339af0;
+}
+
+.btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transition: 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* ======= ALERTS ======= */
+.alert-light {
+    font-size: 15px;
+    background-color: var(--white);
+    border-left: 5px solid var(--accent-color);
+    color: var(--text-dark);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.alert-light .btn {
+    margin-left: 8px;
+    background-color: var(--accent-color);
+    border: none;
+    padding: 4px 10px;
+    color: white;
+    font-size: 13px;
+    border-radius: 6px;
+    transition: 0.3s ease;
+}
+
+.alert-light .btn:hover {
+    background-color: #e8a940;
+}
+
+/* ======= MODAL ======= */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-body ul {
+    padding-left: 18px;
+}
+.modal-body ul li {
+    margin-bottom: 6px;
+    font-size: 15px;
+}

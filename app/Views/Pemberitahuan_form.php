@@ -8,32 +8,8 @@
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
 
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 40px;
-        }
-        th, td {
-            border: 1px solid #aaa;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #eee;
-        }
-        button {
-            padding: 4px 8px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/pemberitahuan.css') ?>">
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 <div class="wrapper">
@@ -53,8 +29,7 @@
             <div class="container">
 
                 <?php if (session()->get('role') === 'admin'): ?>
-
-                    <!-- Daftar Peminjaman Alat (Belum Disetujui) -->
+                    <!-- Daftar Peminjaman Alat -->
                     <div class="card mb-5">
                         <div class="card-header bg-info text-white">
                             <h5 class="card-title mb-0">Daftar Peminjaman Alat (Belum Disetujui)</h5>
@@ -159,7 +134,6 @@
                             </table>
                         </div>
                     </div>
-
                 <?php endif; ?>
 
                 <?php if (session()->get('role') === 'user'): ?>

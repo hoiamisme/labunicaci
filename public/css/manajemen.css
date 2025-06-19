@@ -1,0 +1,124 @@
+/* ======= ROOT COLOR THEME ======= */
+:root {
+    --primary-color: #3b2fc9;
+    --accent-color: #fcbf49;
+    --bg-light: #fcebd3;
+    --white: #ffffff;
+    --text-dark: #222;
+    --text-muted: #777;
+    --info-blue: #4dabf7;
+}
+
+/* ======= GLOBAL ======= */
+body {
+    background-color: var(--bg-light);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ======= HEADER ======= */
+.content-header h1 {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ======= CARD STYLING ======= */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: var(--white);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+}
+
+/* Tambah Data Card */
+.card-header.bg-primary {
+    background-color: var(--primary-color) !important;
+    color: var(--white);
+}
+
+/* Kurangi Data Card */
+.card-header.bg-warning {
+    background-color: var(--accent-color) !important;
+    color: var(--text-dark);
+}
+
+/* ======= FORM STYLING ======= */
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(59, 47, 201, 0.15);
+}
+
+/* ======= BUTTONS ======= */
+button,
+.btn {
+    border-radius: 8px;
+    padding: 0.45rem 1.2rem;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Tambah Button */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Kurangi Button */
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Dropdown / Select */
+select.form-control {
+    appearance: none;
+    background: #fff url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23666' d='M0 0l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+    background-size: 10px 5px;
+    padding-right: 2rem;
+}
+
+/* Responsive Adjustments (optional) */
+@media (max-width: 576px) {
+    .card-header {
+        font-size: 1rem;
+    }
+    .content-header h1 {
+        font-size: 1.5rem;
+    }
+}

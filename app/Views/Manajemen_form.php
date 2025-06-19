@@ -7,6 +7,9 @@
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/css/manajemen.css') ?>">
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 <div class="wrapper">
@@ -133,7 +136,6 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // === TAMBAH ===
     const jenisTambah = document.getElementById("jenisTambah");
     const satuanTambahWrapper = document.getElementById("satuanTambahWrapper");
     const lokasiTambahInput = document.getElementById("lokasiTambahInput");
@@ -166,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function () {
         namaTambahInput.value = namaTambahInput.value.toLowerCase();
     });
 
-    // === KURANGI ===
     const jenisKurang = document.getElementById("jenisKurang");
     const namaKurang = document.getElementById("namaKurang");
     const satuanKurang = document.getElementById("satuanKurang");
