@@ -11,8 +11,65 @@
   <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css') ?>">
   <!-- AdminLTE -->
   <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
+
+  <!-- Tambahan Gaya -->
+  <style>
+    body {
+      background: linear-gradient(to right,rgb(253, 253, 253),rgb(239, 223, 255));
+    }
+
+    .login-box {
+      margin-top: 8%;
+    }
+
+    .login-logo a {
+      color:rgb(67, 73, 165);
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .login-card-body {
+      border-radius: 12px;
+      background-color: #ffffff;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      border: none;
+      border-radius: 8px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .input-group-text {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .alert-danger {
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    a {
+      font-weight: bold;
+      color: #555;
+    }
+
+    a:hover {
+      color: #007bff;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body class="hold-transition login-page">
+
 <div class="login-box">
   <div class="login-logo">
     <a href="#"><b>Login</b> Sistem</a>
@@ -44,11 +101,11 @@
         </div>
 
         <div class="row">
-          <div class="col-8">
-            <a href="<?= base_url('/registrasi') ?>">Daftar akun baru</a>
+          <div class="col-8 d-flex align-items-center">
+            <a href="<?= base_url('/registrasi') ?>">📝 Daftar akun baru</a>
           </div>
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <button type="submit" class="btn btn-primary btn-block">🔓 Login</button>
           </div>
         </div>
       </form>
@@ -60,5 +117,6 @@
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') ?>"></script>
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/dist/js/adminlte.min.js') ?>"></script>
+
 </body>
 </html>
