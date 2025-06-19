@@ -7,7 +7,6 @@
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
-
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 
@@ -33,7 +32,10 @@
                     <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
                 <?php endif; ?>
 
-                <div class="card">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title mb-0"><i class="fas fa-user-cog"></i> Informasi Akun</h3>
+                    </div>
                     <div class="card-body">
                         <p><strong>Nama:</strong> <?= esc($user['nama_lengkap']) ?></p>
                         <p><strong>Cohort:</strong> <?= esc($user['cohort']) ?></p>
@@ -74,6 +76,18 @@
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') ?>"></script>
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 <script src="<?= base_url('adminlte/AdminLTE-3.2.0/dist/js/adminlte.min.js') ?>"></script>
+
+<!-- Optional: Untuk label input file -->
+<script>
+    document.querySelectorAll('.custom-file-input').forEach(input => {
+        input.addEventListener('change', function(e){
+            let fileName = e.target.files[0]?.name;
+            if (fileName) {
+                e.target.nextElementSibling.innerText = fileName;
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

@@ -7,6 +7,81 @@
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
+
+    <!-- Tambahan Styling -->
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1.m-0.text-dark {
+            color: #2d3e50;
+            font-weight: bold;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            border: none;
+            border-radius: 8px;
+        }
+
+        .btn-secondary {
+            background-color: #f1f1f1;
+            color: #333;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .alert-info {
+            border-radius: 8px;
+            background-color: #e7f3fe;
+            border-color: #b3d7ff;
+            color: #31708f;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: none;
+        }
+
+        .table thead {
+            background-color: #3a7bd5;
+            color: #fff;
+        }
+
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table td, .table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .pagination .page-link {
+            border-radius: 8px;
+            color: #3a7bd5;
+        }
+
+        .pagination .disabled .page-link {
+            color: #999;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            border: none;
+            color: white;
+        }
+    </style>
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 <div class="wrapper">
@@ -59,7 +134,7 @@
                 <div class="card">
                     <div class="card-body table-responsive p-0">
                         <table class="table table-bordered table-hover text-nowrap">
-                            <thead class="thead-dark">
+                            <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Nama Bahan</th>
@@ -125,7 +200,7 @@
                                         <a class="page-link" href="/inventory/daftar-bahan?page=<?= $currentPage - 1 ?><?= $queryString ?>">← Sebelumnya</a>
                                     </li>
                                 <?php endif; ?>
-                                <li class="page-item disabled"><span class="page-link">Halaman <?= $currentPage ?> dari <?= $totalPages ?></span></li>
+                                <li class="page-item active"><span class="page-link">Halaman <?= $currentPage ?> dari <?= $totalPages ?></span></li>
                                 <?php if ($currentPage < $totalPages): ?>
                                     <li class="page-item">
                                         <a class="page-link" href="/inventory/daftar-bahan?page=<?= $currentPage + 1 ?><?= $queryString ?>">Selanjutnya →</a>
