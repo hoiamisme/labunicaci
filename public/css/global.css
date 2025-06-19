@@ -1,0 +1,26 @@
+body {
+    background-color: #3e2ed3;
+    background-image: url("../adminlte/AdminLTE-3.2.0/dist/img/Bg%20Biru.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Poppins', Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.navbar,
+.main-header,
+header {
+    background: #3e2ed3 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.navbar * ,
+.main-header * ,
+header * {
+    color: #fff !important;
+}

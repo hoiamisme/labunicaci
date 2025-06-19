@@ -67,6 +67,7 @@ button, .btn {
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     margin-bottom: 30px;
+    background: #fff;
 }
 
 /* === CARD HEADER === */
@@ -83,11 +84,99 @@ button, .btn {
 /* === TEXT === */
 h1 {
     font-weight: 700;
-    color: #343a40;
+    color: #ffffff;
     margin-bottom: 20px;
 }
 
 /* === SPACING === */
 .mb-5 {
     margin-bottom: 3rem !important;
+}
+
+/* Custom style for Pemberitahuan */
+.content-header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.card {
+    margin-bottom: 2rem;
+}
+
+.card-header.bg-info {
+    background-color: #17a2b8 !important;
+    color: #fff !important;
+}
+
+.card-header.bg-warning {
+    background-color: #ffc107 !important;
+    color: #dee3e9 !important;
+}
+
+.table th, .table td {
+    vertical-align: middle !important;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+body {
+    background-color: #3e2ed3;
+    background-image: url("../adminlte/AdminLTE-3.2.0/dist/img/Bg%20Biru.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Pastikan wrapper dan container transparan */
+.content-wrapper,
+.container {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* === PEMBERITAHUAN === */
+/* Judul Pemberitahuan */
+.content-header h1 {
+    color: #ffc107 !important; /* kuning */
+    font-weight: 800;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Judul Card Daftar Peminjaman Alat */
+.card-header.bg-warning,
+.card-header.bg-warning .card-title {
+    background-color: #ffc107 !important;
+    color: #fff !important; /* putih */
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .container {
+        padding: 0 8px;
+    }
+    .card-body, .card-header {
+        padding: 14px 8px;
+    }
+    .table th, .table td {
+        padding: 10px 4px;
+        font-size: 14px;
+    }
+    .card-title {
+        font-size: 1.1rem;
+    }
+    .content-header h1 {
+        font-size: 1.5rem;
+    }
 }

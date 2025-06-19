@@ -10,6 +10,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= base_url('css/pemberitahuan.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/global.css') ?>">
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 <div class="wrapper">
@@ -172,7 +173,7 @@
                                                     <form action="/pemberitahuan/returnAlat" method="post" style="display:inline;">
                                                         <?= csrf_field() ?>
                                                         <input type="hidden" name="id_logalat" value="<?= $item->id_logalat ?>">
-                                                        <button type="submit" class="btn btn-primary btn-sm">✔ Kembalikan</button>
+                                                        <button type="submit" class="btn btn-primary btn-sm">Kembalikan</button>
                                                     </form>
                                                 </td>
                                             </tr>

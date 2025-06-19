@@ -7,79 +7,8 @@
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('adminlte/AdminLTE-3.2.0/dist/css/adminlte.min.css') ?>">
-
-    <!-- Custom CSS Styling -->
-    <style>
-        body {
-            background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        h1.m-0.text-dark {
-            color: #2d3e50;
-            font-weight: bold;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .form-inline .form-control {
-            border-radius: 8px;
-            box-shadow: none;
-        }
-
-        .btn-primary, .btn-secondary {
-            border-radius: 8px;
-            padding: 8px 16px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, #3a7bd5, #00d2ff);
-            border: none;
-        }
-
-        .btn-secondary {
-            background-color: #f1f1f1;
-            color: #333;
-            border: none;
-        }
-
-        .table thead th {
-            background-color: #3a7bd5;
-            color: #fff;
-            text-align: center;
-        }
-
-        .table-bordered {
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .table td {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-radius: 12px;
-        }
-
-        .pagination .page-link {
-            border-radius: 8px;
-            color: #3a7bd5;
-        }
-
-        .pagination .active .page-link {
-            background: linear-gradient(to right, #3a7bd5, #00d2ff);
-            border: none;
-            color: #fff;
-        }
-
-        .text-danger {
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="<?= base_url('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/daftar_alat.css') ?>">
 </head>
 <body class="hold-transition layout-navbar-fixed layout-top-nav">
 <div class="wrapper">
